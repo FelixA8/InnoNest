@@ -11,4 +11,10 @@ class Constant {
           borderSide: BorderSide.none),
       contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10.0),
       fillColor: Color(0xFFD9D9D9));
+  static const boxDecorationA = BoxDecoration(
+    color: Color(0xff0085FF),
+    borderRadius: BorderRadius.all(
+      Radius.circular(10),
+    ),
+  );
 }
