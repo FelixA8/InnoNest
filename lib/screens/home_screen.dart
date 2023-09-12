@@ -2,7 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mechar/constant.dart';
+import 'package:mechar/sections/about_section.dart';
+import 'package:mechar/sections/account_section.dart';
+import 'package:mechar/sections/cart_section.dart';
+import 'package:mechar/sections/home_section.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,10 +15,26 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  var _selectedIndex = 0;
   final _auth = FirebaseAuth.instance;
   String? userEmail;
   var hasLoaded = false;
   String userName = '';
+  Widget? status;
+
+  void checkSection() {
+    setState(() {
+      if (_selectedIndex == 0) {
+        status = HomeSection(userName: userName);
+      } else if (_selectedIndex == 1) {
+        status = CartSection();
+      } else if (_selectedIndex == 2) {
+        status = AccountSection();
+      } else if (_selectedIndex == 3) {
+        status = AboutSection();
+      }
+    });
+  }
 
   void getCurrentUserData() async {
     final user = _auth.currentUser!;
@@ -33,95 +52,50 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     getCurrentUserData();
+    checkSection();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    getCurrentUserData();
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Hello, $userName',
-                style: GoogleFonts.poppins(
-                  textStyle: const TextStyle(
-                      color: Color(0xff0085FF),
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              Expanded(
-                child: ListView(
-                  children: [
-                    SizedBox(
-                      height: 100,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: [
-                          GestureDetector(
-                            child: Container(
-                              height: 100,
-                              width: 80,
-                              decoration: Constant.boxDecorationA,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          GestureDetector(
-                            child: Container(
-                              height: 100,
-                              width: 80,
-                              decoration: Constant.boxDecorationA,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          GestureDetector(
-                            child: Container(
-                              height: 100,
-                              width: 80,
-                              decoration: Constant.boxDecorationA,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          GestureDetector(
-                            child: Container(
-                              height: 100,
-                              width: 80,
-                              decoration: Constant.boxDecorationA,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          GestureDetector(
-                            child: Container(
-                              height: 100,
-                              width: 80,
-                              decoration: Constant.boxDecorationA,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      body: status,
+      bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: const Color(0xff0085FF),
+          selectedItemColor: const Color.fromRGBO(255, 255, 255, 0.65),
+          unselectedItemColor: Colors.white,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+              backgroundColor: Colors.white,
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_bag),
+              label: 'Cart',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.account_box),
+              label: 'Account',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.info),
+              label: 'About',
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          onTap: (value) {
+            setState(() {
+              _selectedIndex = value;
+              checkSection();
+            });
+          }),
     );
   }
 }
