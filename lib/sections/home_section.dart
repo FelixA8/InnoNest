@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:model_viewer_plus/model_viewer_plus.dart';
+import 'package:mechar/models/asset_models.dart';
+import 'package:mechar/widgets/product_home_overview.dart';
 
 class HomeSection extends StatelessWidget {
   const HomeSection({super.key, required this.userName});
@@ -28,53 +29,14 @@ class HomeSection extends StatelessWidget {
                 height: 50,
               ),
               Expanded(
-                child: ListView(
-                  shrinkWrap: true,
-                  children: [
-                    AspectRatio(
-                      aspectRatio: 16 / 9,
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                              image: NetworkImage(
-                                  'https://drive.google.com/uc?export=download&id=1uQXpcp7n6JLqMgUi8AulnXRf5yUOAq__'),
-                              fit: BoxFit.cover),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 50,
-                    ),
-                    AspectRatio(
-                      aspectRatio: 16 / 9,
-                      child: Container(
-                        color: Colors.red,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 50,
-                    ),
-                    AspectRatio(
-                      aspectRatio: 16 / 9,
-                      child: Container(
-                        color: Colors.red,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 50,
-                    ),
-                    AspectRatio(
-                      aspectRatio: 16 / 9,
-                      child: Container(
-                        color: Colors.red,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 50,
-                    ),
-                  ],
+                child: ListView.builder(
+                  itemCount: furnitureAssets.length,
+                  itemBuilder: (context, index) {
+                    return ProductHomeOverview(
+                        url: furnitureAssets[index].imgUrl);
+                  },
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -82,3 +44,33 @@ class HomeSection extends StatelessWidget {
     );
   }
 }
+
+// ListView(
+//                   shrinkWrap: true,
+//                   children: const [
+//                     ProductHomeOverview(
+//                         url:
+//                             'https://drive.google.com/uc?export=download&id=1uQXpcp7n6JLqMgUi8AulnXRf5yUOAq__'),
+//                     SizedBox(
+//                       height: 50,
+//                     ),
+//                     ProductHomeOverview(
+//                         url:
+//                             'https://drive.google.com/uc?export=download&id=1a8R2oqA4mDpT1JDKXjocna_GcxcVdCc3'),
+//                     SizedBox(
+//                       height: 50,
+//                     ),
+//                     ProductHomeOverview(
+//                         url:
+//                             'https://drive.google.com/uc?export=download&id=1yUHCn8bC8YkweTXMeoX6jSyZo8ev9XSX'),
+//                     SizedBox(
+//                       height: 50,
+//                     ),
+//                     ProductHomeOverview(
+//                         url:
+//                             'https://drive.google.com/uc?export=download&id=1dy_r2gFIXPVawmTYYXA7ijo_XQyA1GYQ'),
+//                     SizedBox(
+//                       height: 50,
+//                     ),
+//                   ],
+//                 ),
