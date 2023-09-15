@@ -33,13 +33,13 @@ class _HomeScreenState extends State<HomeScreen> {
         status = HomeSection(userName: userName);
       } else if (_selectedIndex == 1) {
         //if index is 1, show cart section.
-        status = CartSection();
+        status = const CartSection();
       } else if (_selectedIndex == 2) {
         //if index is 2, show account section.
-        status = AccountSection();
+        status = const AccountSection();
       } else if (_selectedIndex == 3) {
         //if index is 3, show about section.
-        status = AboutSection();
+        status = const AboutSection();
       }
     });
   }
