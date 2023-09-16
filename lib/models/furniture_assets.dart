@@ -17,7 +17,8 @@ class Furniture {
       required this.price,
       required this.imgUrl,
       required this.arUrl,
-      required this.category})
+      required this.category,
+      required this.description})
       : id = uuid.v4();
   String id;
   String title;
@@ -25,6 +26,7 @@ class Furniture {
   String imgUrl;
   String arUrl;
   Category category;
+  String description;
 
   String get getFormattedAccount {
     return NumberFormat.currency(locale: 'id_ID', symbol: '', decimalDigits: 0)

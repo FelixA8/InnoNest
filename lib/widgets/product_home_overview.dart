@@ -1,6 +1,7 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:mechar/models/furniture_assets.dart';
+import 'package:mechar/screens/product_screen.dart';
 
 class ProductHomeOverview extends StatefulWidget {
   const ProductHomeOverview({super.key, required this.furniture});
@@ -34,7 +35,27 @@ class _ProductHomeOverviewState extends State<ProductHomeOverview> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print('hi');
+        Navigator.push(
+          context,
+          PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) {
+              return ProductScreen(furniture: widget.furniture);
+            },
+            transitionDuration: const Duration(milliseconds: 100),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              const begin = Offset(1, 0);
+              const end = Offset.zero;
+              const curve = Curves.ease;
+              var tween =
+                  Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+              return SlideTransition(
+                position: animation.drive(tween),
+                child: child,
+              );
+            },
+          ),
+        );
       },
       child: AspectRatio(
         aspectRatio: 16 / 9,

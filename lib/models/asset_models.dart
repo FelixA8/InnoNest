@@ -6,6 +6,8 @@ import 'package:mechar/models/furniture_assets.dart';
 List<Furniture> furnitureAssets = [
   Furniture(
       title: 'Sofa 1',
+      description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
       price: 4999999,
       arUrl:
           'https://drive.google.com/uc?export=download&id=1AMB175zaNpOlZPqX0RbMJGDSotsqZ9LO',
@@ -13,6 +15,7 @@ List<Furniture> furnitureAssets = [
       category: Category.sofa),
   Furniture(
       title: 'Sofa 2',
+      description: 'this is a description',
       price: 7999999,
       arUrl:
           'https://drive.google.com/uc?export=download&id=1IBM1gybvVwH2rsjhaPIQjqG7zd9wJO6k',
@@ -20,6 +23,7 @@ List<Furniture> furnitureAssets = [
       category: Category.sofa),
   Furniture(
       title: 'Sofa 3',
+      description: 'this is a description',
       price: 5999999,
       arUrl:
           'https://drive.google.com/uc?export=download&id=1I5NKHr5y8o7wMvaSjKGUR_o3HW8TF39q',
@@ -27,6 +31,7 @@ List<Furniture> furnitureAssets = [
       category: Category.sofa),
   Furniture(
       title: 'Folding Table 1',
+      description: 'this is a description',
       price: 1999999,
       imgUrl:
           'Furniture Assets/Table/Folding Table/Screenshot 2023-09-11 170632.png',
@@ -35,6 +40,7 @@ List<Furniture> furnitureAssets = [
       category: Category.table),
   Furniture(
       title: 'Wooden Table 1',
+      description: 'this is a description',
       price: 1599999,
       imgUrl:
           'Furniture Assets/Table/Wooden Table/Screenshot 2023-09-11 170816.png',
@@ -43,6 +49,7 @@ List<Furniture> furnitureAssets = [
       category: Category.table),
   Furniture(
       title: 'Office Chair 1',
+      description: 'this is a description',
       price: 799999,
       imgUrl:
           'Furniture Assets/Chair/Office Chair 1/Screenshot 2023-09-11 171114 (1).png',
@@ -51,6 +58,7 @@ List<Furniture> furnitureAssets = [
       category: Category.chair),
   Furniture(
       title: 'Wooden Chair 1',
+      description: 'this is a description',
       price: 799999,
       imgUrl:
           'Furniture Assets/Chair/Wooden Chair 1/Screenshot 2023-09-11 171450.png',
@@ -59,6 +67,7 @@ List<Furniture> furnitureAssets = [
       category: Category.chair),
   Furniture(
       title: 'Coffee maker',
+      description: 'this is a description',
       price: 599999,
       imgUrl:
           'Furniture Assets/Kitchen/Coffee maker 1/Screenshot 2023-09-11 171932.png',
@@ -67,6 +76,7 @@ List<Furniture> furnitureAssets = [
       category: Category.kitchen),
   Furniture(
       title: 'Bed 1',
+      description: 'this is a description',
       price: 7999999,
       imgUrl: 'Furniture Assets/Bed/Bed 1/Screenshot 2023-09-11 172543.png',
       arUrl:
