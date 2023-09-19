@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mechar/custom_widgets/image_holder.dart';
+import 'package:mechar/models/cart_models.dart';
 import 'package:mechar/models/furniture_assets.dart';
+import 'package:mechar/libraries/globals.dart' as globals;
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({super.key, required this.furniture});
@@ -12,7 +15,28 @@ class ProductScreen extends StatefulWidget {
 }
 
 class _ProductScreenState extends State<ProductScreen> {
-  void addCart() {}
+  Cart? _replyObj;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _replyObj = Cart(furniture: widget.furniture, amount: 1, onChecked: false);
+  }
+
+  void addNewCart() async {
+    final docRef = FirebaseFirestore.instance
+        .collection('users')
+        .doc(globals.userData.uid)
+        .collection('cart')
+        .withConverter(
+          fromFirestore: Cart.fromFirestore,
+          toFirestore: (cart, options) => cart.toFirestore(),
+        )
+        .doc(_replyObj!.furniture.id);
+    await docRef.set(_replyObj!);
+  }
+
+  void addExistingCart() async {}
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +101,9 @@ class _ProductScreenState extends State<ProductScreen> {
         child: Container(
           color: Colors.white,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              addNewCart();
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xff0085FF),
               shape: RoundedRectangleBorder(

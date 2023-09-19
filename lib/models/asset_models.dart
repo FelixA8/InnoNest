@@ -121,4 +121,6 @@ List<CategTypes> categoryTypeAssets = [
   )
 ];
 
-List<Cart> cardAssets = [Cart(furniture: furnitureAssets[0], amount: 2)];
+List<Cart> cardAssets = [
+  Cart(furniture: furnitureAssets[0], amount: 2, onChecked: false)
+];

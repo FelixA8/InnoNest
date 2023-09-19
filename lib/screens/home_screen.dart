@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:mechar/models/user_data.dart';
 import 'package:mechar/sections/about_section.dart';
 import 'package:mechar/sections/account_section.dart';
 import 'package:mechar/sections/cart_section.dart';
 import 'package:mechar/sections/home_section.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mechar/libraries/globals.dart' as globals;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -48,16 +48,16 @@ class _HomeScreenState extends State<HomeScreen> {
   //function that gathers user's data once logged in
   void getCurrentUserData() async {
     //shorten the _auth.currentUser! syntax
-    final user = _auth.currentUser!;
+    globals.userData = _auth.currentUser!;
     //get hold of the users collection
     final users = FirebaseFirestore.instance.collection('users');
     //get hold of the documents which is the user.uid and get the data
-    UserData.userData = await users.doc(user.uid).get();
+    final userData = await users.doc(globals.userData.uid).get();
     setState(
       () {
-        userName = UserData.userData.data()![
+        userName = userData.data()![
             'username']; //reach the username in the firebase firestore and set it to the userName
-        userEmail = user.email; //set the user email
+        userEmail = globals.userData.email; //set the user email
       },
     );
   }
