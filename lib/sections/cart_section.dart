@@ -13,6 +13,7 @@ class CartSection extends StatefulWidget {
 
 class _CartSectionState extends State<CartSection> {
   var selectAll = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

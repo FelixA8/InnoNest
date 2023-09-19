@@ -29,14 +29,12 @@ class _CustomImageHolderState extends State<CustomImageHolder> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getDownloadURL(widget.customURL);
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 

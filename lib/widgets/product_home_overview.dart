@@ -20,7 +20,9 @@ class _ProductHomeOverviewState extends State<ProductHomeOverview> {
           context,
           PageRouteBuilder(
             pageBuilder: (context, animation, secondaryAnimation) {
-              return ProductScreen(furniture: widget.furniture);
+              return ProductScreen(
+                furniture: widget.furniture,
+              );
             },
             transitionDuration: const Duration(milliseconds: 100),
             transitionsBuilder:

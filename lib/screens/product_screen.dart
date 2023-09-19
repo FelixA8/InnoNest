@@ -1,9 +1,7 @@
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mechar/custom_widgets/image_holder.dart';
 import 'package:mechar/models/furniture_assets.dart';
-import 'package:model_viewer_plus/model_viewer_plus.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({super.key, required this.furniture});
@@ -14,6 +12,8 @@ class ProductScreen extends StatefulWidget {
 }
 
 class _ProductScreenState extends State<ProductScreen> {
+  void addCart() {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -54,7 +54,8 @@ class HomeSection extends StatelessWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       return ProductHomeOverview(
-                          furniture: furnitureAssets[index]);
+                        furniture: furnitureAssets[index],
+                      );
                     },
                     separatorBuilder: (context, index) {
                       return const SizedBox(

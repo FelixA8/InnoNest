@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mechar/models/user_data.dart';
 import 'package:mechar/sections/about_section.dart';
 import 'package:mechar/sections/account_section.dart';
 import 'package:mechar/sections/cart_section.dart';
@@ -51,10 +52,10 @@ class _HomeScreenState extends State<HomeScreen> {
     //get hold of the users collection
     final users = FirebaseFirestore.instance.collection('users');
     //get hold of the documents which is the user.uid and get the data
-    final userData = await users.doc(user.uid).get();
+    UserData.userData = await users.doc(user.uid).get();
     setState(
       () {
-        userName = userData.data()![
+        userName = UserData.userData.data()![
             'username']; //reach the username in the firebase firestore and set it to the userName
         userEmail = user.email; //set the user email
       },
@@ -70,7 +71,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 

@@ -18,10 +18,12 @@ class Furniture {
       required this.imgUrl,
       required this.arUrl,
       required this.category,
-      required this.description})
+      required this.description,
+      required this.location})
       : id = uuid.v4();
   String id;
   String title;
+  String location;
   double price;
   String imgUrl;
   String arUrl;
