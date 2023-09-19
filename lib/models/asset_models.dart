@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mechar/models/cart_models.dart';
 import 'package:mechar/models/category_contructor.dart';
 import 'package:mechar/models/furniture_assets.dart';
 
@@ -110,3 +111,5 @@ List<CategTypes> categoryTypeAssets = [
     icons: const FaIcon(FontAwesomeIcons.gear, color: Colors.white),
   )
 ];
+
+List<Cart> cardAssets = [Cart(furniture: furnitureAssets[0], amount: 2)];

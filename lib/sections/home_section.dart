@@ -12,7 +12,7 @@ class HomeSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
+        padding: const EdgeInsets.all(15),
         child: SafeArea(
           child: SingleChildScrollView(
             child: Column(

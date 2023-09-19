@@ -1,5 +1,5 @@
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:mechar/custom_widgets/image_holder.dart';
 import 'package:mechar/models/furniture_assets.dart';
 import 'package:mechar/screens/product_screen.dart';
 
@@ -12,25 +12,6 @@ class ProductHomeOverview extends StatefulWidget {
 }
 
 class _ProductHomeOverviewState extends State<ProductHomeOverview> {
-  String imageURL =
-      "https://drive.google.com/uc?export=download&id=1XNOVj73YECeHQGocFrTO-Kgb2TR42qS3";
-  Future<void> getDownloadURL(imgPath) async {
-    final storageRef = FirebaseStorage.instance.ref();
-    final ref = storageRef.child(imgPath);
-    String url = await ref.getDownloadURL();
-
-    setState(() {
-      imageURL = url;
-    });
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getDownloadURL(widget.furniture.imgUrl);
-  }
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -57,37 +38,8 @@ class _ProductHomeOverviewState extends State<ProductHomeOverview> {
           ),
         );
       },
-      child: AspectRatio(
-        aspectRatio: 16 / 9,
-        child: Container(
-          decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(
-                Radius.circular(10),
-              ),
-              color: Colors.grey),
-          child: ClipRRect(
-            borderRadius: const BorderRadius.all(
-              Radius.circular(10),
-            ),
-            child: Image.network(
-              imageURL,
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) {
-                  return child;
-                }
-                return Center(
-                  child: CircularProgressIndicator(
-                    value: loadingProgress.expectedTotalBytes != null
-                        ? loadingProgress.cumulativeBytesLoaded /
-                            loadingProgress.expectedTotalBytes!
-                        : null,
-                  ),
-                );
-              },
-            ),
-          ),
-        ),
-      ),
+      child: CustomImageHolder(
+          customHeight: 9, customWidth: 16, customURL: widget.furniture.imgUrl),
     );
   }
 }

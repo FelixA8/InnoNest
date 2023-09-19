@@ -1,6 +1,7 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mechar/custom_widgets/image_holder.dart';
 import 'package:mechar/models/furniture_assets.dart';
 import 'package:model_viewer_plus/model_viewer_plus.dart';
 
@@ -13,25 +14,6 @@ class ProductScreen extends StatefulWidget {
 }
 
 class _ProductScreenState extends State<ProductScreen> {
-  String imageURL =
-      "https://drive.google.com/uc?export=download&id=1XNOVj73YECeHQGocFrTO-Kgb2TR42qS3";
-  Future<void> getDownloadURL(imgPath) async {
-    final storageRef = FirebaseStorage.instance.ref();
-    final ref = storageRef.child(imgPath);
-    String url = await ref.getDownloadURL();
-
-    setState(() {
-      imageURL = url;
-    });
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getDownloadURL(widget.furniture.imgUrl);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,27 +30,10 @@ class _ProductScreenState extends State<ProductScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AspectRatio(
-                      aspectRatio: 16 / 9,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                            image:
-                                DecorationImage(image: NetworkImage(imageURL)),
-                            color: Colors.grey),
-                        child: ClipRRect(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                          child: ModelViewer(
-                            src: widget.furniture.arUrl,
-                            ar: true,
-                          ),
-                        ),
-                      ),
-                    ),
+                    CustomImageHolder(
+                        customHeight: 9,
+                        customWidth: 16,
+                        customURL: widget.furniture.imgUrl),
                     const SizedBox(
                       height: 5,
                     ),
