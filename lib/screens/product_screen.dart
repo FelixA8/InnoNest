@@ -16,15 +16,19 @@ class ProductScreen extends StatefulWidget {
 
 class _ProductScreenState extends State<ProductScreen> {
   Cart? _replyObj;
+  DocumentReference? docRef;
+  var docID;
+  var currentDataAmount;
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _replyObj = Cart(furniture: widget.furniture, amount: 1, onChecked: false);
+    getDoc();
   }
 
-  void addNewCart() async {
-    final docRef = FirebaseFirestore.instance
+  void getDoc() {
+    docRef = FirebaseFirestore.instance
         .collection('users')
         .doc(globals.userData.uid)
         .collection('cart')
@@ -33,10 +37,32 @@ class _ProductScreenState extends State<ProductScreen> {
           toFirestore: (cart, options) => cart.toFirestore(),
         )
         .doc(_replyObj!.furniture.id);
-    await docRef.set(_replyObj!);
   }
 
-  void addExistingCart() async {}
+  void addNewCart() async {
+    await docRef!.set(_replyObj!);
+  }
+
+  void getAmountSnapshots() async {
+    final userData = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(globals.userData.uid)
+        .collection('cart')
+        .doc(_replyObj!.furniture.id)
+        .get();
+    currentDataAmount = userData.data()!['amount'];
+  }
+
+  void addExistingCart() async {
+    getAmountSnapshots();
+    currentDataAmount++;
+    await docRef!.update({'amount': currentDataAmount});
+  }
+
+  void getID() async {
+    var test = await docRef!.get();
+    docID = test.id;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +128,12 @@ class _ProductScreenState extends State<ProductScreen> {
           color: Colors.white,
           child: ElevatedButton(
             onPressed: () {
-              addNewCart();
+              getID();
+              if (widget.furniture.id == docID) {
+                addExistingCart();
+              } else {
+                addNewCart();
+              }
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xff0085FF),
