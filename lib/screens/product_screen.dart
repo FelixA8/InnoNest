@@ -43,25 +43,37 @@ class _ProductScreenState extends State<ProductScreen> {
     await docRef!.set(_replyObj!);
   }
 
-  void getAmountSnapshots() async {
+  Future getAmountSnapshots() async {
     final userData = await FirebaseFirestore.instance
         .collection('users')
         .doc(globals.userData.uid)
         .collection('cart')
         .doc(_replyObj!.furniture.id)
         .get();
-    currentDataAmount = userData.data()!['amount'];
+    var test = userData.data()!['amount'];
+    setState(() {
+      currentDataAmount = test;
+    });
   }
 
   void addExistingCart() async {
-    getAmountSnapshots();
-    currentDataAmount++;
+    await getAmountSnapshots();
+    currentDataAmount += 1;
     await docRef!.update({'amount': currentDataAmount});
   }
 
-  void getID() async {
-    var test = await docRef!.get();
-    docID = test.id;
+  Future getID() async {
+    final userData = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(globals.userData.uid)
+        .collection('cart')
+        .doc(_replyObj!.furniture.id)
+        .get();
+    if (userData.data() != null) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   @override
@@ -127,12 +139,14 @@ class _ProductScreenState extends State<ProductScreen> {
         child: Container(
           color: Colors.white,
           child: ElevatedButton(
-            onPressed: () {
-              getID();
-              if (widget.furniture.id == docID) {
-                addExistingCart();
-              } else {
+            onPressed: () async {
+              var docID;
+              docID = await getID();
+              print(docID);
+              if (docID) {
                 addNewCart();
+              } else {
+                addExistingCart();
               }
             },
             style: ElevatedButton.styleFrom(

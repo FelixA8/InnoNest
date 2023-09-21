@@ -19,8 +19,8 @@ class Furniture {
       required this.arUrl,
       required this.category,
       required this.description,
-      required this.location})
-      : id = uuid.v4();
+      required this.location,
+      required this.id});
   String id;
   String title;
   String location;

@@ -14,7 +14,8 @@ List<Furniture> furnitureAssets = [
       arUrl:
           'https://drive.google.com/uc?export=download&id=1AMB175zaNpOlZPqX0RbMJGDSotsqZ9LO',
       imgUrl: 'Furniture Assets/Sofa/Sofa 1/Screenshot (18).png',
-      category: Category.sofa),
+      category: Category.sofa,
+      id: '1'),
   Furniture(
       title: 'Sofa 2',
       description: 'this is a description',
@@ -23,7 +24,8 @@ List<Furniture> furnitureAssets = [
       arUrl:
           'https://drive.google.com/uc?export=download&id=1IBM1gybvVwH2rsjhaPIQjqG7zd9wJO6k',
       imgUrl: 'Furniture Assets/Sofa/Sofa 2/Screenshot (19).png',
-      category: Category.sofa),
+      category: Category.sofa,
+      id: '2'),
   Furniture(
       title: 'Sofa 3',
       description: 'this is a description',
@@ -32,7 +34,8 @@ List<Furniture> furnitureAssets = [
       arUrl:
           'https://drive.google.com/uc?export=download&id=1I5NKHr5y8o7wMvaSjKGUR_o3HW8TF39q',
       imgUrl: 'Furniture Assets/Sofa/Sofa 3/Screenshot (16).png',
-      category: Category.sofa),
+      category: Category.sofa,
+      id: '3'),
   Furniture(
       title: 'Folding Table 1',
       description: 'this is a description',
@@ -42,7 +45,8 @@ List<Furniture> furnitureAssets = [
           'Furniture Assets/Table/Folding Table/Screenshot 2023-09-11 170632.png',
       arUrl:
           'https://drive.google.com/uc?export=download&id=1PBS31nxoz1wvXF_x1tMlWOZ-ftvh7122',
-      category: Category.table),
+      category: Category.table,
+      id: '4'),
   Furniture(
       title: 'Wooden Table 1',
       description: 'this is a description',
@@ -52,7 +56,8 @@ List<Furniture> furnitureAssets = [
           'Furniture Assets/Table/Wooden Table/Screenshot 2023-09-11 170816.png',
       arUrl:
           'https://drive.google.com/uc?export=download&id=1otoL2Lq5oxBxpHQpN9xlor5HlklqevPD',
-      category: Category.table),
+      category: Category.table,
+      id: '5'),
   Furniture(
       title: 'Office Chair 1',
       description: 'this is a description',
@@ -62,7 +67,8 @@ List<Furniture> furnitureAssets = [
           'Furniture Assets/Chair/Office Chair 1/Screenshot 2023-09-11 171114 (1).png',
       arUrl:
           'https://drive.google.com/uc?export=download&id=1eJhSm0DRjJ2hKZ0MUJgUzlkJ303QNBqG',
-      category: Category.chair),
+      category: Category.chair,
+      id: '6'),
   Furniture(
       title: 'Wooden Chair 1',
       description: 'this is a description',
@@ -72,7 +78,8 @@ List<Furniture> furnitureAssets = [
           'Furniture Assets/Chair/Wooden Chair 1/Screenshot 2023-09-11 171450.png',
       arUrl:
           'https://drive.google.com/uc?export=download&id=1ePtKlObZ8oMG7_-X5nhzOAW8mfO7mIod',
-      category: Category.chair),
+      category: Category.chair,
+      id: '7'),
   Furniture(
       title: 'Coffee maker',
       description: 'this is a description',
@@ -82,7 +89,8 @@ List<Furniture> furnitureAssets = [
           'Furniture Assets/Kitchen/Coffee maker 1/Screenshot 2023-09-11 171932.png',
       arUrl:
           'https://drive.google.com/uc?export=download&id=1lWfTt42SdD6ahSQLmEwa3kKdgP29VKzV',
-      category: Category.kitchen),
+      category: Category.kitchen,
+      id: '8'),
   Furniture(
       title: 'Bed 1',
       description: 'this is a description',
@@ -91,7 +99,8 @@ List<Furniture> furnitureAssets = [
       imgUrl: 'Furniture Assets/Bed/Bed 1/Screenshot 2023-09-11 172543.png',
       arUrl:
           'https://drive.google.com/uc?export=download&id=1pKuArMEIa7Tkb4BXTq1fZ0bodGJIf300',
-      category: Category.bed),
+      category: Category.bed,
+      id: '9'),
 ];
 
 List<CategTypes> categoryTypeAssets = [
