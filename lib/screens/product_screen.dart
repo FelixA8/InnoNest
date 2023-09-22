@@ -142,7 +142,6 @@ class _ProductScreenState extends State<ProductScreen> {
             onPressed: () async {
               var docID;
               docID = await getID();
-              print(docID);
               if (docID) {
                 addNewCart();
               } else {

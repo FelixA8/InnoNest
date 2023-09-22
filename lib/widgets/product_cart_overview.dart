@@ -2,24 +2,57 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mechar/custom_widgets/image_holder.dart';
+import 'package:mechar/models/asset_models.dart';
 import 'package:mechar/models/cart_models.dart';
 
 class ProductCartOverview extends StatefulWidget {
-  const ProductCartOverview({super.key, required this.cart});
-  final Cart cart;
+  const ProductCartOverview(
+      {super.key,
+      required this.cartID,
+      required this.amount,
+      required this.onChecked});
+  final String cartID;
+  final int amount;
+  final bool onChecked;
 
   @override
   State<ProductCartOverview> createState() => _ProductCartOverviewState();
 }
 
 class _ProductCartOverviewState extends State<ProductCartOverview> {
+  Cart? currentCart;
+
   @override
   void dispose() {
     super.dispose();
   }
 
+  void getCart() {
+    for (var furniture in furnitureAssets) {
+      if (furniture.id == widget.cartID) {
+        setState(() {
+          currentCart = Cart(
+              furniture: furniture,
+              amount: widget.amount,
+              onChecked: widget.onChecked);
+          return;
+        });
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getCart();
+  }
+
   @override
   Widget build(BuildContext context) {
+    // print(currentCart!.furniture.title);
+    int amount = widget.amount;
+    bool onChecked = widget.onChecked;
     return Column(
       children: [
         Row(
@@ -28,10 +61,10 @@ class _ProductCartOverviewState extends State<ProductCartOverview> {
               height: 20,
               width: 20,
               child: Checkbox(
-                  value: widget.cart.onChecked,
+                  value: onChecked,
                   onChanged: (value) {
                     setState(() {
-                      widget.cart.onChecked = value!;
+                      onChecked = value!;
                     });
                   }),
             ),
@@ -39,12 +72,13 @@ class _ProductCartOverviewState extends State<ProductCartOverview> {
               width: 10,
             ),
             SizedBox(
-                width: 70,
-                height: 70,
-                child: CustomImageHolder(
-                    customHeight: 1,
-                    customWidth: 1,
-                    customURL: widget.cart.furniture.imgUrl)),
+              width: 70,
+              height: 70,
+              child: CustomImageHolder(
+                  customHeight: 1,
+                  customWidth: 1,
+                  customURL: currentCart!.furniture.imgUrl),
+            ),
             const SizedBox(
               width: 10,
             ),
@@ -52,7 +86,7 @@ class _ProductCartOverviewState extends State<ProductCartOverview> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.cart.furniture.title,
+                  currentCart!.furniture.title,
                   style: GoogleFonts.poppins(fontSize: 14),
                 ),
                 Text(
@@ -60,7 +94,7 @@ class _ProductCartOverviewState extends State<ProductCartOverview> {
                   style: GoogleFonts.poppins(fontSize: 12),
                 ),
                 Text(
-                  'Rp ${widget.cart.furniture.getFormattedAccount},00',
+                  'Rp ${currentCart!.furniture.getFormattedAccount},00',
                   style: GoogleFonts.poppins(
                       fontSize: 14, fontWeight: FontWeight.bold),
                 ),
@@ -99,7 +133,7 @@ class _ProductCartOverviewState extends State<ProductCartOverview> {
                       ),
                     ),
                     Text(
-                      widget.cart.amount.toString(),
+                      amount.toString(),
                       style: GoogleFonts.poppins(),
                     ),
                     SizedBox(

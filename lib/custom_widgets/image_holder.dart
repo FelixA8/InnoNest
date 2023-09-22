@@ -17,7 +17,7 @@ class CustomImageHolder extends StatefulWidget {
 class _CustomImageHolderState extends State<CustomImageHolder> {
   String imageURL =
       "https://drive.google.com/uc?export=download&id=1XNOVj73YECeHQGocFrTO-Kgb2TR42qS3";
-  Future<void> getDownloadURL(imgPath) async {
+  Future<void> getURL(imgPath) async {
     final storageRef = FirebaseStorage.instance.ref();
     final ref = storageRef.child(imgPath);
     String url = await ref.getDownloadURL();
@@ -30,7 +30,7 @@ class _CustomImageHolderState extends State<CustomImageHolder> {
   @override
   void initState() {
     super.initState();
-    getDownloadURL(widget.customURL);
+    getURL(widget.customURL);
   }
 
   @override

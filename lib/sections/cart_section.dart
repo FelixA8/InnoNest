@@ -1,7 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mechar/models/asset_models.dart';
+import 'package:mechar/libraries/globals.dart' as globals;
 import 'package:mechar/widgets/product_cart_overview.dart';
 
 class CartSection extends StatefulWidget {
@@ -87,18 +88,42 @@ class _CartSectionState extends State<CartSection> {
                 height: 20,
               ),
               Expanded(
-                child: ListView.separated(
-                  itemCount: cardAssets.length,
-                  itemBuilder: (context, index) {
-                    return ProductCartOverview(cart: cardAssets[index]);
-                  },
-                  separatorBuilder: (context, index) {
-                    return const SizedBox(
-                      height: 25,
+                  child: StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('users')
+                    .doc(globals.userData.uid)
+                    .collection('cart')
+                    .orderBy('time', descending: true)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
                     );
-                  },
-                ),
-              )
+                  }
+                  if (snapshot.data!.docs.isEmpty) {
+                    return const Center(
+                      child: Text('no cart added'),
+                    );
+                  }
+                  if (snapshot.hasError) {
+                    return const Center(
+                      child: Text('Oops, something went wrong'),
+                    );
+                  }
+                  final loadedData = snapshot.data!.docs;
+                  return ListView.builder(
+                    itemCount: loadedData.length,
+                    itemBuilder: (context, index) {
+                      final cartData = loadedData[index].data();
+                      return ProductCartOverview(
+                          cartID: cartData['productID'].toString(),
+                          amount: cartData['amount'],
+                          onChecked: cartData['onChecked']);
+                    },
+                  );
+                },
+              ))
             ],
           ),
         ),
@@ -106,3 +131,15 @@ class _CartSectionState extends State<CartSection> {
     );
   }
 }
+
+// ListView.separated(
+//                   itemCount: cardAssets.length,
+//                   itemBuilder: (context, index) {
+//                     return ProductCartOverview(cart: cardAssets[index]);
+//                   },
+//                   separatorBuilder: (context, index) {
+//                     return const SizedBox(
+//                       height: 25,
+//                     );
+//                   },
+//                 ),
