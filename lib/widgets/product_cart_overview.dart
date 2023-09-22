@@ -1,26 +1,31 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mechar/custom_widgets/image_holder.dart';
 import 'package:mechar/models/asset_models.dart';
 import 'package:mechar/models/cart_models.dart';
+import 'package:mechar/libraries/globals.dart' as globals;
 
 class ProductCartOverview extends StatefulWidget {
-  const ProductCartOverview(
-      {super.key,
-      required this.cartID,
-      required this.amount,
-      required this.onChecked});
+  const ProductCartOverview({
+    super.key,
+    required this.cartID,
+    required this.amount,
+    required this.onChecked,
+  });
   final String cartID;
   final int amount;
   final bool onChecked;
-
   @override
   State<ProductCartOverview> createState() => _ProductCartOverviewState();
 }
 
 class _ProductCartOverviewState extends State<ProductCartOverview> {
   Cart? currentCart;
+  DocumentReference? docRef;
+  int currentDataAmount = 0;
+  bool onChecked = false;
 
   @override
   void dispose() {
@@ -41,11 +46,70 @@ class _ProductCartOverviewState extends State<ProductCartOverview> {
     }
   }
 
+  void getDoc(String furnitureID) {
+    docRef = FirebaseFirestore.instance
+        .collection('users')
+        .doc(globals.userData.uid)
+        .collection('cart')
+        .doc(furnitureID);
+  }
+
+  Future getAmountSnapshots(String furnitureID) async {
+    currentDataAmount = 0;
+    final userData = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(globals.userData.uid)
+        .collection('cart')
+        .doc(furnitureID)
+        .get();
+    var test = userData.data()!['amount'];
+    setState(() {
+      currentDataAmount = test;
+    });
+  }
+
+  Future getOnCheckedSnapshots(String furnitureID) async {
+    onChecked = false;
+    final userData = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(globals.userData.uid)
+        .collection('cart')
+        .doc(furnitureID)
+        .get();
+    var test = userData.data()!['onChecked'];
+    setState(() {
+      onChecked = test;
+    });
+  }
+
+  void addAmount(String furnitureID) async {
+    await getAmountSnapshots(furnitureID);
+    currentDataAmount += 1;
+    await docRef!.update({'amount': currentDataAmount});
+  }
+
+  void removeAmount(String furnitureID) async {
+    await getAmountSnapshots(furnitureID);
+    currentDataAmount -= 1;
+    await docRef!.update({'amount': currentDataAmount});
+  }
+
+  void deleteAmount() async {
+    await docRef!.delete();
+  }
+
+  void checkAmount(String furnitureID) async {
+    await getOnCheckedSnapshots(furnitureID);
+    onChecked = !onChecked;
+    await docRef!.update({'onChecked': onChecked});
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getCart();
+    getDoc(widget.cartID);
   }
 
   @override
@@ -64,7 +128,7 @@ class _ProductCartOverviewState extends State<ProductCartOverview> {
                   value: onChecked,
                   onChanged: (value) {
                     setState(() {
-                      onChecked = value!;
+                      checkAmount(widget.cartID);
                     });
                   }),
             ),
@@ -77,7 +141,9 @@ class _ProductCartOverviewState extends State<ProductCartOverview> {
               child: CustomImageHolder(
                   customHeight: 1,
                   customWidth: 1,
-                  customURL: currentCart!.furniture.imgUrl),
+                  customURL: currentCart!.furniture.imgUrl,
+                  arURL: currentCart!.furniture.arUrl,
+                  showAR: false),
             ),
             const SizedBox(
               width: 10,
@@ -106,7 +172,11 @@ class _ProductCartOverviewState extends State<ProductCartOverview> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  deleteAmount();
+                });
+              },
               icon: const Icon(FontAwesomeIcons.trashCan),
             ),
             Container(
@@ -125,7 +195,9 @@ class _ProductCartOverviewState extends State<ProductCartOverview> {
                       child: IconButton(
                         padding: EdgeInsets.zero,
                         constraints: const BoxConstraints(),
-                        onPressed: () {},
+                        onPressed: () {
+                          removeAmount(widget.cartID);
+                        },
                         icon: const Icon(
                           FontAwesomeIcons.minus,
                           size: 12,
@@ -142,7 +214,9 @@ class _ProductCartOverviewState extends State<ProductCartOverview> {
                       child: IconButton(
                         padding: EdgeInsets.zero,
                         constraints: const BoxConstraints(),
-                        onPressed: () {},
+                        onPressed: () {
+                          addAmount(widget.cartID);
+                        },
                         icon: const Icon(
                           FontAwesomeIcons.plus,
                           size: 12,

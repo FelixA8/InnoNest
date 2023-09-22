@@ -95,7 +95,9 @@ class _ProductScreenState extends State<ProductScreen> {
                     CustomImageHolder(
                         customHeight: 9,
                         customWidth: 16,
-                        customURL: widget.furniture.imgUrl),
+                        customURL: widget.furniture.imgUrl,
+                        arURL: widget.furniture.arUrl,
+                        showAR: true),
                     const SizedBox(
                       height: 5,
                     ),

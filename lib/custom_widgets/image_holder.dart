@@ -1,15 +1,20 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:model_viewer_plus/model_viewer_plus.dart';
 
 class CustomImageHolder extends StatefulWidget {
   const CustomImageHolder(
       {super.key,
       required this.customHeight,
       required this.customWidth,
-      required this.customURL});
+      required this.customURL,
+      required this.showAR,
+      required this.arURL});
   final int customWidth;
   final int customHeight;
   final String customURL;
+  final bool showAR;
+  final String arURL;
   @override
   State<CustomImageHolder> createState() => _CustomImageHolderState();
 }
@@ -43,32 +48,18 @@ class _CustomImageHolderState extends State<CustomImageHolder> {
     return AspectRatio(
       aspectRatio: widget.customWidth / widget.customHeight,
       child: Container(
-        decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(
+        decoration: BoxDecoration(
+            image: DecorationImage(image: NetworkImage(imageURL)),
+            borderRadius: const BorderRadius.all(
               Radius.circular(10),
             ),
             color: Colors.grey),
-        child: ClipRRect(
-          borderRadius: const BorderRadius.all(
-            Radius.circular(10),
-          ),
-          child: Image.network(
-            imageURL,
-            loadingBuilder: (context, child, loadingProgress) {
-              if (loadingProgress == null) {
-                return child;
-              }
-              return Center(
-                child: CircularProgressIndicator(
-                  value: loadingProgress.expectedTotalBytes != null
-                      ? loadingProgress.cumulativeBytesLoaded /
-                          loadingProgress.expectedTotalBytes!
-                      : null,
-                ),
-              );
-            },
-          ),
-        ),
+        child: widget.showAR
+            ? ModelViewer(
+                src: widget.arURL,
+                ar: true,
+              )
+            : Container(),
       ),
     );
   }

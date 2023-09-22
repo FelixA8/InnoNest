@@ -41,7 +41,11 @@ class _ProductHomeOverviewState extends State<ProductHomeOverview> {
         );
       },
       child: CustomImageHolder(
-          customHeight: 9, customWidth: 16, customURL: widget.furniture.imgUrl),
+          customHeight: 9,
+          customWidth: 16,
+          customURL: widget.furniture.imgUrl,
+          arURL: widget.furniture.arUrl,
+          showAR: false),
     );
   }
 }

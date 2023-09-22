@@ -16,6 +16,12 @@ class _CartSectionState extends State<CartSection> {
   var selectAll = false;
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
@@ -117,9 +123,10 @@ class _CartSectionState extends State<CartSection> {
                     itemBuilder: (context, index) {
                       final cartData = loadedData[index].data();
                       return ProductCartOverview(
-                          cartID: cartData['productID'].toString(),
-                          amount: cartData['amount'],
-                          onChecked: cartData['onChecked']);
+                        cartID: cartData['productID'].toString(),
+                        amount: cartData['amount'],
+                        onChecked: cartData['onChecked'],
+                      );
                     },
                   );
                 },
