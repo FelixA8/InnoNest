@@ -11,6 +11,7 @@ class Cart {
   Furniture furniture;
   int amount;
   bool onChecked = false;
+  // ignore: prefer_typing_uninitialized_variables
   final time;
 
   Map<String, dynamic> toJson() => {

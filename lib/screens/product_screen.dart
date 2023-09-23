@@ -17,7 +17,9 @@ class ProductScreen extends StatefulWidget {
 class _ProductScreenState extends State<ProductScreen> {
   Cart? _replyObj;
   DocumentReference? docRef;
+  // ignore: prefer_typing_uninitialized_variables
   var docID;
+  // ignore: prefer_typing_uninitialized_variables
   var currentDataAmount;
 
   @override
@@ -142,6 +144,7 @@ class _ProductScreenState extends State<ProductScreen> {
           color: Colors.white,
           child: ElevatedButton(
             onPressed: () async {
+              // ignore: prefer_typing_uninitialized_variables
               var docID;
               docID = await getID();
               if (docID) {

@@ -8,15 +8,16 @@ import 'package:mechar/models/cart_models.dart';
 import 'package:mechar/libraries/globals.dart' as globals;
 
 class ProductCartOverview extends StatefulWidget {
-  const ProductCartOverview({
-    super.key,
-    required this.cartID,
-    required this.amount,
-    required this.onChecked,
-  });
+  const ProductCartOverview(
+      {super.key,
+      required this.cartID,
+      required this.amount,
+      required this.onChecked,
+      required this.getTotalAmount});
   final String cartID;
   final int amount;
   final bool onChecked;
+  final void Function() getTotalAmount;
   @override
   State<ProductCartOverview> createState() => _ProductCartOverviewState();
 }
@@ -86,27 +87,30 @@ class _ProductCartOverviewState extends State<ProductCartOverview> {
     await getAmountSnapshots(furnitureID);
     currentDataAmount += 1;
     await docRef!.update({'amount': currentDataAmount});
+    widget.getTotalAmount();
   }
 
   void removeAmount(String furnitureID) async {
     await getAmountSnapshots(furnitureID);
     currentDataAmount -= 1;
     await docRef!.update({'amount': currentDataAmount});
+    widget.getTotalAmount();
   }
 
   void deleteAmount() async {
     await docRef!.delete();
+    widget.getTotalAmount();
   }
 
   void checkAmount(String furnitureID) async {
     await getOnCheckedSnapshots(furnitureID);
     onChecked = !onChecked;
     await docRef!.update({'onChecked': onChecked});
+    widget.getTotalAmount();
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getCart();
     getDoc(widget.cartID);

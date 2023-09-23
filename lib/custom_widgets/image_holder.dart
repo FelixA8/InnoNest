@@ -22,30 +22,28 @@ class CustomImageHolder extends StatefulWidget {
 class _CustomImageHolderState extends State<CustomImageHolder> {
   String imageURL = "https://via.placeholder.com/1600x900";
   String augmentedURL = "https://via.placeholder.com/1600x900";
+  final storageRef = FirebaseStorage.instance.ref();
+
   Future<void> getURL(imgPath) async {
-    final storageRef = FirebaseStorage.instance.ref();
     final ref = storageRef.child(imgPath);
     String url = await ref.getDownloadURL();
-    setState(() {
-      imageURL = url;
-    });
+    imageURL = url;
+    setState(() {});
   }
 
   Future<void> getArURL(arPath) async {
-    final storageRef = FirebaseStorage.instance.ref();
     final ref = storageRef.child(arPath);
     String url = await ref.getDownloadURL();
     setState(() {
       augmentedURL = url;
     });
-    print(augmentedURL);
   }
 
   @override
   void initState() {
     super.initState();
     getURL(widget.customURL);
-    getArURL(widget.arURL);
+    widget.showAR ? getArURL(widget.arURL) : null;
   }
 
   @override
