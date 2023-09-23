@@ -20,22 +20,32 @@ class CustomImageHolder extends StatefulWidget {
 }
 
 class _CustomImageHolderState extends State<CustomImageHolder> {
-  String imageURL =
-      "https://drive.google.com/uc?export=download&id=1XNOVj73YECeHQGocFrTO-Kgb2TR42qS3";
+  String imageURL = "https://via.placeholder.com/1600x900";
+  String augmentedURL = "https://via.placeholder.com/1600x900";
   Future<void> getURL(imgPath) async {
     final storageRef = FirebaseStorage.instance.ref();
     final ref = storageRef.child(imgPath);
     String url = await ref.getDownloadURL();
-
     setState(() {
       imageURL = url;
     });
+  }
+
+  Future<void> getArURL(arPath) async {
+    final storageRef = FirebaseStorage.instance.ref();
+    final ref = storageRef.child(arPath);
+    String url = await ref.getDownloadURL();
+    setState(() {
+      augmentedURL = url;
+    });
+    print(augmentedURL);
   }
 
   @override
   void initState() {
     super.initState();
     getURL(widget.customURL);
+    getArURL(widget.arURL);
   }
 
   @override
@@ -48,18 +58,42 @@ class _CustomImageHolderState extends State<CustomImageHolder> {
     return AspectRatio(
       aspectRatio: widget.customWidth / widget.customHeight,
       child: Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(image: NetworkImage(imageURL)),
-            borderRadius: const BorderRadius.all(
-              Radius.circular(10),
-            ),
-            color: Colors.grey),
+        decoration: widget.showAR
+            ? BoxDecoration(
+                image: DecorationImage(image: NetworkImage(imageURL)),
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(10),
+                ),
+                color: Colors.grey)
+            : const BoxDecoration(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+                color: Colors.grey),
         child: widget.showAR
             ? ModelViewer(
-                src: widget.arURL,
+                src: augmentedURL,
                 ar: true,
               )
-            : Container(),
+            : ClipRRect(
+                borderRadius: BorderRadius.circular(10.0),
+                child: Image.network(
+                  imageURL,
+                  fit: BoxFit.fill,
+                  loadingBuilder: (BuildContext context, Widget child,
+                      ImageChunkEvent? loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Center(
+                      child: CircularProgressIndicator(
+                        value: loadingProgress.expectedTotalBytes != null
+                            ? loadingProgress.cumulativeBytesLoaded /
+                                loadingProgress.expectedTotalBytes!
+                            : null,
+                      ),
+                    );
+                  },
+                ),
+              ),
       ),
     );
   }
