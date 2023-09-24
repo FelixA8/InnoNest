@@ -46,6 +46,8 @@ dependencies:
   intl: ^0.18.1
   firebase_storage: ^11.2.6
   firebase_database: ^10.2.5
+  action_slider: ^0.7.0
+  confetti: ^0.7.0
 
 dev_dependencies:
   flutter_test:

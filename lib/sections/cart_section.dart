@@ -1,3 +1,4 @@
+import 'package:action_slider/action_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -5,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:mechar/libraries/globals.dart' as globals;
 import 'package:mechar/models/asset_models.dart';
+import 'package:mechar/screens/success_purchase_screen.dart';
 import 'package:mechar/widgets/product_cart_overview.dart';
 
 class CartSection extends StatefulWidget {
@@ -17,8 +19,10 @@ class CartSection extends StatefulWidget {
 class _CartSectionState extends State<CartSection> {
   var selectAll = false;
   // ignore: prefer_typing_uninitialized_variables
-  var docRef;
+  DocumentReference? docRef;
   double total = 0;
+  bool isSelectItem = false;
+  bool onChecked = false;
 
   @override
   void dispose() {
@@ -29,6 +33,62 @@ class _CartSectionState extends State<CartSection> {
   void initState() {
     super.initState();
     getTotalAmount();
+    checkIfSelected();
+  }
+
+  void checkIfSelected() async {
+    isSelectItem = false;
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(globals.userData.uid)
+        .collection('cart')
+        .get()
+        .then((querySnapshot) {
+      for (var docSnapshot in querySnapshot.docs) {
+        if (docSnapshot.data()['onChecked'] == true) {
+          isSelectItem = true;
+          break;
+        }
+      }
+    });
+  }
+
+  Future getOnCheckedSnapshots(String furnitureID) async {
+    onChecked = false;
+    final userData = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(globals.userData.uid)
+        .collection('cart')
+        .doc(furnitureID)
+        .get();
+    var test = userData.data()!['onChecked'];
+    setState(() {
+      onChecked = test;
+    });
+  }
+
+  Future<void> batchDelete() {
+    WriteBatch batch = FirebaseFirestore.instance.batch();
+
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(globals.userData.uid)
+        .collection('cart')
+        .get()
+        .then((querySnapshot) {
+      querySnapshot.docs.forEach((document) {
+        if (document.data()['onChecked'] == true) {
+          batch.delete(document.reference);
+        }
+      });
+      return batch.commit();
+    });
+  }
+
+  void deletePurchasedItems() async {
+    await batchDelete();
+    getTotalAmount();
+    checkIfSelected();
   }
 
   void selectAllCheckBox() async {
@@ -51,6 +111,7 @@ class _CartSectionState extends State<CartSection> {
       }
     });
     getTotalAmount();
+    checkIfSelected();
   }
 
   void getTotalAmount() async {
@@ -61,18 +122,24 @@ class _CartSectionState extends State<CartSection> {
         .collection('cart')
         .get()
         .then((querySnapshot) {
-      for (var docSnapshot in querySnapshot.docs) {
-        var amount = docSnapshot.data()['amount'];
-        double price = 0;
-        for (var furniture in furnitureAssets) {
-          if (furniture.id == docSnapshot.data()['productID'] &&
-              docSnapshot.data()['onChecked'] == true) {
-            price = furniture.price;
-            break;
+      if (querySnapshot.docs.isEmpty) {
+        setState(() {
+          total = 0;
+        });
+      } else {
+        for (var docSnapshot in querySnapshot.docs) {
+          var amount = docSnapshot.data()['amount'];
+          double price = 0;
+          for (var furniture in furnitureAssets) {
+            if (furniture.id == docSnapshot.data()['productID'] &&
+                docSnapshot.data()['onChecked'] == true) {
+              price = furniture.price;
+              break;
+            }
           }
+          total += (amount * price);
+          setState(() {});
         }
-        total += (amount * price);
-        setState(() {});
       }
     });
   }
@@ -80,6 +147,29 @@ class _CartSectionState extends State<CartSection> {
   String getFormattedAccount(price) {
     return NumberFormat.currency(locale: 'id_ID', symbol: '', decimalDigits: 0)
         .format(price);
+  }
+
+  void changeToSuccessScreen() {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) {
+          return const SuccessPurchaseScreen();
+        },
+        transitionDuration: const Duration(milliseconds: 300),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          const begin = Offset(1, 0);
+          const end = Offset.zero;
+          const curve = Curves.ease;
+          var tween =
+              Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+          return SlideTransition(
+            position: animation.drive(tween),
+            child: child,
+          );
+        },
+      ),
+    );
   }
 
   @override
@@ -192,6 +282,7 @@ class _CartSectionState extends State<CartSection> {
                           amount: cartData['amount'],
                           onChecked: cartData['onChecked'],
                           getTotalAmount: getTotalAmount,
+                          checkIfSelected: checkIfSelected,
                         );
                       },
                     );
@@ -200,14 +291,33 @@ class _CartSectionState extends State<CartSection> {
               ),
               Text(
                 'Total Price:',
-                style: GoogleFonts.poppins(
-                    fontSize: 24, fontWeight: FontWeight.bold),
+                style: GoogleFonts.poppins(fontSize: 20),
               ),
               Text(
                 'Rp. ${getFormattedAccount(total)},00',
                 style: GoogleFonts.poppins(
                     fontSize: 24, fontWeight: FontWeight.bold),
               ),
+              const SizedBox(
+                height: 12,
+              ),
+              isSelectItem
+                  ? ActionSlider.standard(
+                      height: 60,
+                      child: Text(
+                        'Swipe to Purchase',
+                        style: GoogleFonts.poppins(
+                          fontSize: 20,
+                        ),
+                      ),
+                      action: (controller) async {
+                        controller.loading(); //starts loading animation
+                        // await Future.delayed(const Duration(seconds: 3));
+                        deletePurchasedItems();
+                        changeToSuccessScreen();
+                      },
+                    )
+                  : Container(),
             ],
           ),
         ),

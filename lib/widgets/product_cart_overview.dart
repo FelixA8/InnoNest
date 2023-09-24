@@ -13,11 +13,13 @@ class ProductCartOverview extends StatefulWidget {
       required this.cartID,
       required this.amount,
       required this.onChecked,
-      required this.getTotalAmount});
+      required this.getTotalAmount,
+      required this.checkIfSelected});
   final String cartID;
   final int amount;
   final bool onChecked;
   final void Function() getTotalAmount;
+  final void Function() checkIfSelected;
   @override
   State<ProductCartOverview> createState() => _ProductCartOverviewState();
 }
@@ -97,9 +99,13 @@ class _ProductCartOverviewState extends State<ProductCartOverview> {
     widget.getTotalAmount();
   }
 
-  void deleteAmount() async {
-    await docRef!.delete();
+  void deleteAmount(String furnitureID) async {
+    await getOnCheckedSnapshots(furnitureID);
+    onChecked = false;
+    await docRef!.update({'onChecked': onChecked});
     widget.getTotalAmount();
+    widget.checkIfSelected();
+    await docRef!.delete();
   }
 
   void checkAmount(String furnitureID) async {
@@ -107,6 +113,7 @@ class _ProductCartOverviewState extends State<ProductCartOverview> {
     onChecked = !onChecked;
     await docRef!.update({'onChecked': onChecked});
     widget.getTotalAmount();
+    widget.checkIfSelected();
   }
 
   @override
@@ -178,7 +185,7 @@ class _ProductCartOverviewState extends State<ProductCartOverview> {
             IconButton(
               onPressed: () {
                 setState(() {
-                  deleteAmount();
+                  deleteAmount(widget.cartID);
                 });
               },
               icon: const Icon(FontAwesomeIcons.trashCan),
