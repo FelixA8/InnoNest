@@ -21,7 +21,8 @@ class CustomImageHolder extends StatefulWidget {
 
 class _CustomImageHolderState extends State<CustomImageHolder> {
   String imageURL = "https://via.placeholder.com/1600x900";
-  String augmentedURL = "https://via.placeholder.com/1600x900";
+  String augmentedURL =
+      "https://modelviewer.dev/shared-assets/models/Astronaut.usdz";
   final storageRef = FirebaseStorage.instance.ref();
 
   Future<void> getURL(imgPath) async {
