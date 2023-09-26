@@ -1,12 +1,41 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mechar/models/asset_models.dart';
 import 'package:mechar/widgets/category_home_icons.dart';
 import 'package:mechar/widgets/product_home_overview.dart';
+import 'package:mechar/libraries/globals.dart' as globals;
 
-class HomeSection extends StatelessWidget {
+class HomeSection extends StatefulWidget {
   const HomeSection({super.key, required this.userName});
   final String userName;
+
+  @override
+  State<HomeSection> createState() => _HomeSectionState();
+}
+
+class _HomeSectionState extends State<HomeSection> {
+  String userName = '';
+  String userEmail = '';
+  void getCurrentUserData() async {
+    //get hold of the users collection
+    final users = FirebaseFirestore.instance.collection('users');
+    //get hold of the documents which is the user.uid and get the data
+    final userData = await users.doc(globals.userData.uid).get();
+    setState(
+      () {
+        userName = userData.data()![
+            'username']; //reach the username in the firebase firestore and set it to the userName
+        userEmail = globals.userData.email; //set the user email
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getCurrentUserData();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mechar/libraries/globals.dart' as globals;
+import 'package:mechar/screens/edit_profile_screen.dart';
 
 class AccountSection extends StatefulWidget {
   const AccountSection({super.key});
@@ -22,9 +23,9 @@ class _AccountSectionState extends State<AccountSection> {
   }
 
   void getCurrentUserData() async {
-    final _auth = FirebaseAuth.instance;
+    final auth = FirebaseAuth.instance;
     //shorten the _auth.currentUser! syntax
-    globals.userData = _auth.currentUser!;
+    globals.userData = auth.currentUser!;
     //get hold of the users collection
     final users = FirebaseFirestore.instance.collection('users');
     //get hold of the documents which is the user.uid and get the data
@@ -38,15 +39,32 @@ class _AccountSectionState extends State<AccountSection> {
     );
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getCurrentUserData();
+  void goToEditProfileScreen() {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) {
+          return const EditProfileScreen();
+        },
+        transitionDuration: const Duration(milliseconds: 300),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          const begin = Offset(1, 0);
+          const end = Offset.zero;
+          const curve = Curves.ease;
+          var tween =
+              Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+          return SlideTransition(
+            position: animation.drive(tween),
+            child: child,
+          );
+        },
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    getCurrentUserData();
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -84,7 +102,9 @@ class _AccountSectionState extends State<AccountSection> {
               description: 'Set your account',
               title: 'Edit Profile',
               icon: FontAwesomeIcons.user,
-              action: () {},
+              action: () {
+                goToEditProfileScreen();
+              },
             ),
             const SizedBox(
               height: 10,
@@ -143,7 +163,7 @@ class AccountSettingsCategories extends StatelessWidget {
         children: [
           Icon(
             icon,
-            color: Color(0xff0085FF),
+            color: const Color(0xff0085FF),
           ),
           const SizedBox(
             width: 12,

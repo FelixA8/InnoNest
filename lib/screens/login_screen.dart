@@ -20,6 +20,8 @@ class _AuthScreenState extends State<AuthScreen> {
   var _enteredName = '';
   var _enteredEmail = '';
   var _enteredPassword = '';
+  var _enteredAddressLocation = '';
+  var _enteredPhoneNumber = '';
   //a boolean to check whether the user is in login/ register state
   var _isLogin = true;
   //a string to show title
@@ -58,6 +60,8 @@ class _AuthScreenState extends State<AuthScreen> {
         {
           'username': _enteredName,
           'email': _enteredEmail,
+          'address location': _enteredAddressLocation,
+          'phone number': _enteredPhoneNumber,
         }, //.set, inside the document, make a new email and a new username.
       );
     }
@@ -148,6 +152,80 @@ class _AuthScreenState extends State<AuthScreen> {
                                 },
                               ),
                             ),
+                      _isLogin
+                          ? Container()
+                          : const SizedBox(
+                              height: 20,
+                            ),
+                      _isLogin
+                          ? Container()
+                          : Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 15),
+                              child: TextFormField(
+                                //a text form field for name
+                                decoration: Constant
+                                    .formDecorationA //a dart class that stores widget (to shorten the code)
+                                    .copyWith(
+                                        hintText:
+                                            'Location Address'), //modify the widget only for this decoration
+                                autocorrect: false,
+                                textCapitalization: TextCapitalization.none,
+                                //validation that triggers when the '_formKey.currentState!.validate()' function is called
+                                validator: (value) {
+                                  //return a text if validation is false
+                                  if (value!.isEmpty ||
+                                      value.trim().length < 2) {
+                                    return 'Please enter a valid address';
+                                  }
+                                  //return null if validation is correct
+                                  return null;
+                                },
+                                //method that triggers when the '_formKey.currentState!.save()' is called
+                                onSaved: (newValue) {
+                                  _enteredAddressLocation =
+                                      newValue!; //set the new entered name into _enteredName variable
+                                },
+                              ),
+                            ),
+                      _isLogin
+                          ? Container()
+                          : const SizedBox(
+                              height: 20,
+                            ),
+                      _isLogin
+                          ? Container()
+                          : Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 15),
+                              child: TextFormField(
+                                //a text form field for name
+                                decoration: Constant
+                                    .formDecorationA //a dart class that stores widget (to shorten the code)
+                                    .copyWith(
+                                        hintText:
+                                            'Phone Number'), //modify the widget only for this decoration
+                                autocorrect: false,
+                                textCapitalization: TextCapitalization.none,
+                                //validation that triggers when the '_formKey.currentState!.validate()' function is called
+                                validator: (value) {
+                                  //return a text if validation is false
+                                  if (value!.isEmpty ||
+                                      value.trim().length < 12 ||
+                                      value.contains(RegExp(r'^[a-zA-Z]+$'))) {
+                                    return 'Please enter a valid phone number';
+                                  }
+                                  //return null if validation is correct
+                                  return null;
+                                },
+                                //method that triggers when the '_formKey.currentState!.save()' is called
+                                onSaved: (newValue) {
+                                  _enteredPhoneNumber =
+                                      newValue!; //set the new entered name into _enteredName variable
+                                },
+                              ),
+                            ),
+
                       const SizedBox(
                         height: 20,
                       ),
