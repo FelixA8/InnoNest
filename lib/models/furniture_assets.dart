@@ -9,6 +9,7 @@ enum Category {
   chair,
   kitchen,
   bed,
+  none,
 }
 
 class Furniture {

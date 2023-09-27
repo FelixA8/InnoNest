@@ -22,19 +22,17 @@ class ChangingProfileScreen extends StatefulWidget {
 
 class _ChangingProfileScreenState extends State<ChangingProfileScreen> {
   final thisformKey = GlobalKey<FormState>();
-  Color containerColor = Color(0xff0085FF);
+  Color containerColor = const Color(0xff0085FF);
   bool _isHover = false;
   String newContent = "";
-  bool _hasInputted = false;
 
   void saveEditedData() async {
-    final _auth = FirebaseAuth.instance;
+    final auth = FirebaseAuth.instance;
     //shorten the _auth.currentUser! syntax
-    globals.userData = _auth.currentUser!;
+    globals.userData = auth.currentUser!;
     //get hold of the users collection
     final users = FirebaseFirestore.instance.collection('users');
     //get hold of the documents which is the user.uid and get the data
-    print(newContent);
     await users.doc(globals.userData.uid).update({widget.keyword: newContent});
   }
 

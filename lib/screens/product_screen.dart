@@ -5,6 +5,7 @@ import 'package:mechar/custom_widgets/image_holder.dart';
 import 'package:mechar/models/cart_models.dart';
 import 'package:mechar/models/furniture_assets.dart';
 import 'package:mechar/libraries/globals.dart' as globals;
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({super.key, required this.furniture});
@@ -144,6 +145,24 @@ class _ProductScreenState extends State<ProductScreen> {
           color: Colors.white,
           child: ElevatedButton(
             onPressed: () async {
+              Alert(
+                context: context,
+                type: AlertType.success,
+                title: "PRODUCT ADDED TO CART",
+                style:
+                    AlertStyle(titleStyle: GoogleFonts.poppins(fontSize: 20)),
+                buttons: [
+                  DialogButton(
+                    color: const Color(0xff0085FF),
+                    onPressed: () => Navigator.pop(context),
+                    width: 120,
+                    child: const Text(
+                      "Confirm",
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                  )
+                ],
+              ).show();
               // ignore: prefer_typing_uninitialized_variables
               var docID;
               docID = await getID();

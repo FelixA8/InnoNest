@@ -93,26 +93,32 @@ List<CategTypes> categoryTypeAssets = [
   CategTypes(
     title: 'Sofa',
     icons: const FaIcon(FontAwesomeIcons.couch, color: Colors.white),
+    category: Category.sofa,
   ),
   CategTypes(
     title: 'Table',
     icons: const FaIcon(FontAwesomeIcons.table, color: Colors.white),
+    category: Category.table,
   ),
   CategTypes(
     title: 'Chair',
     icons: const FaIcon(FontAwesomeIcons.chair, color: Colors.white),
+    category: Category.chair,
   ),
   CategTypes(
     title: 'Kitchen',
     icons: const FaIcon(FontAwesomeIcons.kitchenSet, color: Colors.white),
+    category: Category.kitchen,
   ),
   CategTypes(
     title: 'Bed',
     icons: const FaIcon(FontAwesomeIcons.bed, color: Colors.white),
+    category: Category.bed,
   ),
   CategTypes(
     title: 'Coming Soon',
     icons: const FaIcon(FontAwesomeIcons.gear, color: Colors.white),
+    category: Category.none,
   )
 ];
 

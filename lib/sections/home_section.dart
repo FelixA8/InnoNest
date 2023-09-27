@@ -69,7 +69,8 @@ class _HomeSectionState extends State<HomeSection> {
                     itemBuilder: (context, index) {
                       return CategoryHomeIcon(
                           icons: categoryTypeAssets[index].icons,
-                          title: categoryTypeAssets[index].title);
+                          title: categoryTypeAssets[index].title,
+                          category: categoryTypeAssets[index].category);
                     },
                   ),
                 ),

@@ -16,7 +16,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   //to check the index status of the section in the bottom navbar
-  var _selectedIndex = 2;
+  var _selectedIndex = 0;
   //to shorten the firebaseauth.instance
   final _auth = FirebaseAuth.instance;
   String? userEmail;
