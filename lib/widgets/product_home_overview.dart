@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mechar/custom_widgets/image_holder.dart';
+import 'package:mechar/models/asset_models.dart';
 import 'package:mechar/models/furniture_assets.dart';
 import 'package:mechar/screens/product_screen.dart';
 
@@ -40,12 +42,44 @@ class _ProductHomeOverviewState extends State<ProductHomeOverview> {
           ),
         );
       },
-      child: CustomImageHolder(
-          customHeight: 9,
-          customWidth: 16,
-          customURL: widget.furniture.imgUrl,
-          arURL: widget.furniture.arUrl,
-          showAR: false),
+      child: Card(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CustomImageHolder(
+                customHeight: 1,
+                customWidth: 1,
+                customURL: widget.furniture.imgUrl,
+                arURL: widget.furniture.arUrl,
+                showAR: false),
+            const SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Text(
+                widget.furniture.title,
+                overflow: TextOverflow.ellipsis,
+                style: GoogleFonts.poppins(fontSize: 14),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Text(
+                'Rp ${widget.furniture.getFormattedAccount},00',
+                style: GoogleFonts.poppins(fontSize: 14),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Text(
+                widget.furniture.location,
+                style: GoogleFonts.poppins(fontSize: 12),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

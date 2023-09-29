@@ -77,22 +77,20 @@ class _HomeSectionState extends State<HomeSection> {
                 const SizedBox(
                   height: 20,
                 ),
-                Flexible(
-                  child: ListView.separated(
-                    itemCount: furnitureAssets.length,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return ProductHomeOverview(
-                        furniture: furnitureAssets[index],
-                      );
-                    },
-                    separatorBuilder: (context, index) {
-                      return const SizedBox(
-                        height: 25,
-                      );
-                    },
-                  ),
+                GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      childAspectRatio: 2 / 3),
+                  itemCount: furnitureAssets.length,
+                  itemBuilder: (context, index) {
+                    return ProductHomeOverview(
+                      furniture: furnitureAssets[index],
+                    );
+                  },
                 ),
               ],
             ),
@@ -102,3 +100,19 @@ class _HomeSectionState extends State<HomeSection> {
     );
   }
 }
+
+// ListView.separated(
+//                     itemCount: furnitureAssets.length,
+//                     shrinkWrap: true,
+//                     physics: const NeverScrollableScrollPhysics(),
+//                     itemBuilder: (context, index) {
+//                       return ProductHomeOverview(
+//                         furniture: furnitureAssets[index],
+//                       );
+//                     },
+//                     separatorBuilder: (context, index) {
+//                       return const SizedBox(
+//                         height: 25,
+//                       );
+//                     },
+//                   ),

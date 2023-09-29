@@ -34,6 +34,7 @@ class _CartSectionState extends State<CartSection> {
     super.initState();
     getTotalAmount();
     checkIfSelected();
+    getDoc();
   }
 
   void checkIfSelected() async {
@@ -67,9 +68,20 @@ class _CartSectionState extends State<CartSection> {
     });
   }
 
-  Future<void> batchDelete() {
-    WriteBatch batch = FirebaseFirestore.instance.batch();
+  void getDoc() {
+    docRef = FirebaseFirestore.instance
+        .collection('users')
+        .doc(globals.userData.uid)
+        .collection('history')
+        .doc();
+  }
 
+  void addPurchaseHistory(productID, amount) async {
+    await docRef!.set(
+        {'productID': productID, 'amount': amount, 'date': DateTime.now()});
+  }
+
+  Future<void> batchDelete() {
     return FirebaseFirestore.instance
         .collection('users')
         .doc(globals.userData.uid)
@@ -77,11 +89,15 @@ class _CartSectionState extends State<CartSection> {
         .get()
         .then((querySnapshot) {
       querySnapshot.docs.forEach((document) {
+        WriteBatch batch = FirebaseFirestore.instance.batch();
         if (document.data()['onChecked'] == true) {
+          addPurchaseHistory(
+              document.data()['productID'], document.data()['amount']);
+
           batch.delete(document.reference);
+          batch.commit();
         }
       });
-      return batch.commit();
     });
   }
 

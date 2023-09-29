@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mechar/libraries/globals.dart' as globals;
 import 'package:mechar/screens/edit_profile_screen.dart';
+import 'package:mechar/screens/puchase_history_screen.dart';
 
 class AccountSection extends StatefulWidget {
   const AccountSection({super.key});
@@ -45,6 +46,29 @@ class _AccountSectionState extends State<AccountSection> {
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) {
           return const EditProfileScreen();
+        },
+        transitionDuration: const Duration(milliseconds: 300),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          const begin = Offset(1, 0);
+          const end = Offset.zero;
+          const curve = Curves.ease;
+          var tween =
+              Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+          return SlideTransition(
+            position: animation.drive(tween),
+            child: child,
+          );
+        },
+      ),
+    );
+  }
+
+  void goToPurchaseHistoryScreen() {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) {
+          return const PurchaseHistoryScreen();
         },
         transitionDuration: const Duration(milliseconds: 300),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -113,7 +137,9 @@ class _AccountSectionState extends State<AccountSection> {
               description: 'View your previous buying',
               title: 'Purchase History',
               icon: FontAwesomeIcons.creditCard,
-              action: () {},
+              action: () {
+                goToPurchaseHistoryScreen();
+              },
             ),
             const SizedBox(
               height: 10,
@@ -188,15 +214,3 @@ class AccountSettingsCategories extends StatelessWidget {
     );
   }
 }
-
-// ElevatedButton(
-//             style: ElevatedButton.styleFrom(
-//               backgroundColor: const Color(0xff0085FF), // Background color
-//             ),
-//             onPressed: () {
-//               _signOut();
-//             },
-//             child: Text(
-//               'Logout',
-//               style: GoogleFonts.poppins(fontSize: 16, color: Colors.white),
-//             )),

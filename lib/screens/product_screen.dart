@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mechar/custom_widgets/image_holder.dart';
 import 'package:mechar/models/cart_models.dart';
@@ -105,25 +106,39 @@ class _ProductScreenState extends State<ProductScreen> {
                       height: 5,
                     ),
                     Text(
-                      widget.furniture.title,
-                      style: GoogleFonts.poppins(
-                          fontSize: 40, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Text(
                       'Rp ${widget.furniture.getFormattedAccount},00',
                       style: GoogleFonts.poppins(
-                          fontSize: 24, fontWeight: FontWeight.bold),
+                          fontSize: 20, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(
-                      height: 15,
+                    Text(
+                      widget.furniture.title,
+                      style: GoogleFonts.poppins(
+                          fontSize: 14, fontWeight: FontWeight.w400),
+                    ),
+                    Row(
+                      children: [
+                        const Icon(
+                          FontAwesomeIcons.locationDot,
+                          size: 14,
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          widget.furniture.location,
+                          style: GoogleFonts.poppins(
+                              fontSize: 12,
+                              color: Color.fromRGBO(0, 0, 0, 0.65)),
+                        ),
+                      ],
+                    ),
+                    const Divider(
+                      color: Colors.black,
                     ),
                     Text(
                       'Description',
                       style: GoogleFonts.poppins(
-                          fontSize: 20, fontWeight: FontWeight.bold),
+                          fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
                       height: 15,

@@ -34,21 +34,20 @@ class ProductCategoryScreen extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            Expanded(
-              child: ListView.separated(
-                itemCount: buckets[0].furniture.length,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return ProductHomeOverview(
-                    furniture: buckets[0].furniture[index],
-                  );
-                },
-                separatorBuilder: (context, index) {
-                  return const SizedBox(
-                    height: 25,
-                  );
-                },
-              ),
+            GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                  childAspectRatio: 2 / 3),
+              itemCount: buckets[0].furniture.length,
+              itemBuilder: (context, index) {
+                return ProductHomeOverview(
+                  furniture: buckets[0].furniture[index],
+                );
+              },
             ),
           ],
         ),
