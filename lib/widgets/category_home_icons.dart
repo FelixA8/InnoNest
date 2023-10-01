@@ -46,10 +46,10 @@ class CategoryHomeIcon extends StatelessWidget {
       child: Container(
         decoration: const BoxDecoration(
             color: Color(0xff0085FF),
-            borderRadius: BorderRadius.all(Radius.circular(5))),
+            borderRadius: BorderRadius.all(Radius.circular(10))),
         height: 100,
         width: 80,
-        margin: const EdgeInsets.symmetric(horizontal: 10),
+        margin: const EdgeInsets.symmetric(horizontal: 5),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

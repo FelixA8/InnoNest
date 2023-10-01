@@ -54,6 +54,7 @@ class DefaultFirebaseOptions {
     appId: '1:670623270254:android:0c146abd7bbfd192c7ad7f',
     messagingSenderId: '670623270254',
     projectId: 'mech-ar-1387a',
+    databaseURL: 'https://mech-ar-1387a-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'mech-ar-1387a.appspot.com',
   );
 
@@ -62,6 +63,7 @@ class DefaultFirebaseOptions {
     appId: '1:670623270254:ios:19f3954fda8fa58cc7ad7f',
     messagingSenderId: '670623270254',
     projectId: 'mech-ar-1387a',
+    databaseURL: 'https://mech-ar-1387a-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'mech-ar-1387a.appspot.com',
     iosClientId: '670623270254-921cj7oan28ehvegi3odnhg3r0imthsk.apps.googleusercontent.com',
     iosBundleId: 'com.example.mechar',

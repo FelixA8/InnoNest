@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mechar/constant.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -37,8 +38,36 @@ class _AuthScreenState extends State<AuthScreen> {
     }
     //authentication system. If authentication is valid, then the Streambuilder in main.dart will trigger to the
     //home screen widget.
-    await _auth.signInWithEmailAndPassword(
-        email: _enteredEmail, password: _enteredPassword);
+    try {
+      await _auth.signInWithEmailAndPassword(
+          email: _enteredEmail, password: _enteredPassword);
+    } on FirebaseAuthException {
+      showAlertDialogForFalseEmailOrPass();
+    }
+  }
+
+  void showAlertDialogForFalseEmailOrPass() {
+    Alert(
+      context: context,
+      type: AlertType.error,
+      title: "Wrong Email or Password",
+      desc: "Please use the correct email or password",
+      style: AlertStyle(
+        titleStyle: GoogleFonts.poppins(fontSize: 20),
+        descStyle: GoogleFonts.poppins(fontSize: 12),
+      ),
+      buttons: [
+        DialogButton(
+          color: Colors.red,
+          onPressed: () => Navigator.pop(context),
+          width: 120,
+          child: const Text(
+            "Close",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+        )
+      ],
+    ).show();
   }
 
   //register function where it will validate the data inputted. When the validation is true, then save the data

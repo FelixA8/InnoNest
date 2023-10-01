@@ -40,50 +40,68 @@ class _HomeSectionState extends State<HomeSection> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(15),
-        child: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Hello, $userName',
+      body: SafeArea(
+        top: true,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              //seperator or giving space
+              const SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Text(
+                  'Find by Categories',
                   style: GoogleFonts.poppins(
-                    textStyle: const TextStyle(
-                        color: Color(0xff0085FF),
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold),
-                  ),
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xff0085FF)),
                 ),
-                //seperator or giving space
-                const SizedBox(
-                  height: 20,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                height: 100,
+                child: ListView.builder(
+                  itemCount: categoryTypeAssets.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return CategoryHomeIcon(
+                        icons: categoryTypeAssets[index].icons,
+                        title: categoryTypeAssets[index].title,
+                        category: categoryTypeAssets[index].category);
+                  },
                 ),
-                SizedBox(
-                  height: 100,
-                  child: ListView.builder(
-                    itemCount: categoryTypeAssets.length,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return CategoryHomeIcon(
-                          icons: categoryTypeAssets[index].icons,
-                          title: categoryTypeAssets[index].title,
-                          category: categoryTypeAssets[index].category);
-                    },
-                  ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Text(
+                  'Our Products',
+                  style: GoogleFonts.poppins(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: const Color(0xff0085FF)),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
-                GridView.builder(
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 5,
+                      crossAxisSpacing: 5,
                       childAspectRatio: 2 / 3),
                   itemCount: furnitureAssets.length,
                   itemBuilder: (context, index) {
@@ -92,8 +110,8 @@ class _HomeSectionState extends State<HomeSection> {
                     );
                   },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

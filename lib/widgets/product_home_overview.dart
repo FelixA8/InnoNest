@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mechar/custom_widgets/image_holder.dart';
-import 'package:mechar/models/asset_models.dart';
 import 'package:mechar/models/furniture_assets.dart';
 import 'package:mechar/screens/product_screen.dart';
 

@@ -41,8 +41,13 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
               style: GoogleFonts.poppins(
                   fontSize: 24, fontWeight: FontWeight.bold),
             ),
+            Container(
+              color: const Color(0xff0085FF),
+              width: 230,
+              height: 5,
+            ),
             const SizedBox(
-              height: 20,
+              height: 50,
             ),
             Expanded(
               child: StreamBuilder(

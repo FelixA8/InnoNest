@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mechar/sections/about_section.dart';
 import 'package:mechar/sections/account_section.dart';
 import 'package:mechar/sections/cart_section.dart';
@@ -82,6 +83,10 @@ class _HomeScreenState extends State<HomeScreen> {
           backgroundColor: const Color(0xff0085FF),
           selectedItemColor: const Color.fromRGBO(255, 255, 255,
               0.65), //selected items has different colors from the others
+          elevation: 2,
+          unselectedLabelStyle: GoogleFonts.poppins(fontSize: 12),
+          selectedLabelStyle: GoogleFonts.poppins(fontSize: 16),
+          iconSize: 24,
           unselectedItemColor:
               Colors.white, //unselected items has it's own colors
           items: const [

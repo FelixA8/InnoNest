@@ -188,21 +188,28 @@ class _ProductCartOverviewState extends State<ProductCartOverview> {
                   deleteAmount(widget.cartID);
                 });
               },
-              icon: const Icon(FontAwesomeIcons.trashCan),
+              icon: const Icon(
+                FontAwesomeIcons.trashCan,
+                size: 16,
+                color: Color.fromRGBO(0, 0, 0, 0.65),
+              ),
             ),
             Container(
               width: 80,
               height: 25,
-              decoration:
-                  BoxDecoration(border: Border.all(color: Colors.black)),
+              decoration: BoxDecoration(
+                  border: Border.all(
+                    color: const Color.fromRGBO(0, 0, 0, 0.65),
+                  ),
+                  borderRadius: const BorderRadius.all(Radius.circular(5))),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(
-                      width: 14,
-                      height: 14,
+                      width: 10,
+                      height: 10,
                       child: IconButton(
                         padding: EdgeInsets.zero,
                         constraints: const BoxConstraints(),
@@ -212,12 +219,15 @@ class _ProductCartOverviewState extends State<ProductCartOverview> {
                         icon: const Icon(
                           FontAwesomeIcons.minus,
                           size: 12,
+                          color: Color.fromRGBO(0, 0, 0, 0.65),
                         ),
                       ),
                     ),
                     Text(
                       amount.toString(),
-                      style: GoogleFonts.poppins(),
+                      style: GoogleFonts.poppins(
+                        color: const Color.fromRGBO(0, 0, 0, 0.65),
+                      ),
                     ),
                     SizedBox(
                       width: 14,
@@ -231,6 +241,7 @@ class _ProductCartOverviewState extends State<ProductCartOverview> {
                         icon: const Icon(
                           FontAwesomeIcons.plus,
                           size: 12,
+                          color: Color.fromRGBO(0, 0, 0, 0.65),
                         ),
                       ),
                     ),

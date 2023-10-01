@@ -1,5 +1,6 @@
 import 'package:action_slider/action_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,6 +24,7 @@ class _CartSectionState extends State<CartSection> {
   double total = 0;
   bool isSelectItem = false;
   bool onChecked = false;
+  String userLocation = "";
 
   @override
   void dispose() {
@@ -34,6 +36,7 @@ class _CartSectionState extends State<CartSection> {
     super.initState();
     getTotalAmount();
     checkIfSelected();
+    getUserLocation();
     getDoc();
   }
 
@@ -88,7 +91,7 @@ class _CartSectionState extends State<CartSection> {
         .collection('cart')
         .get()
         .then((querySnapshot) {
-      querySnapshot.docs.forEach((document) {
+      for (var document in querySnapshot.docs) {
         WriteBatch batch = FirebaseFirestore.instance.batch();
         if (document.data()['onChecked'] == true) {
           addPurchaseHistory(
@@ -97,7 +100,7 @@ class _CartSectionState extends State<CartSection> {
           batch.delete(document.reference);
           batch.commit();
         }
-      });
+      }
     });
   }
 
@@ -188,12 +191,28 @@ class _CartSectionState extends State<CartSection> {
     );
   }
 
+  void getUserLocation() async {
+    var auth = FirebaseAuth.instance;
+    globals.userData = auth.currentUser!;
+    //get hold of the users collection
+    final users = FirebaseFirestore.instance.collection('users');
+    //get hold of the documents which is the user.uid and get the data
+    final userData = await users.doc(globals.userData.uid).get();
+    setState(
+      () {
+        userLocation = userData.data()![
+            'address location']; //reach the username in the firebase firestore and set it to the userName
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(15),
-        child: SafeArea(
+      body: SafeArea(
+        top: true,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -228,7 +247,7 @@ class _CartSectionState extends State<CartSection> {
                   ),
                   Text(
                     'Select All',
-                    style: GoogleFonts.poppins(fontSize: 16),
+                    style: GoogleFonts.poppins(fontSize: 12),
                   ),
                 ],
               ),
@@ -240,6 +259,7 @@ class _CartSectionState extends State<CartSection> {
                   const Icon(
                     FontAwesomeIcons.mapLocationDot,
                     size: 20,
+                    color: Color(0xff0085FF),
                   ),
                   const SizedBox(
                     width: 10,
@@ -249,12 +269,12 @@ class _CartSectionState extends State<CartSection> {
                       // Note: Styles for TextSpans must be explicitly defined.
                       // Child text spans will inherit styles from parent
                       style: GoogleFonts.poppins(
-                          fontSize: 16, color: Colors.black),
-                      children: const [
-                        TextSpan(text: 'Dikirim ke '),
+                          fontSize: 12, color: Colors.black),
+                      children: [
+                        const TextSpan(text: 'Send to '),
                         TextSpan(
-                          text: 'Binus University',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          text: userLocation,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -307,19 +327,19 @@ class _CartSectionState extends State<CartSection> {
               ),
               Text(
                 'Total Price:',
-                style: GoogleFonts.poppins(fontSize: 20),
+                style: GoogleFonts.poppins(fontSize: 16),
               ),
               Text(
                 'Rp. ${getFormattedAccount(total)},00',
                 style: GoogleFonts.poppins(
-                    fontSize: 24, fontWeight: FontWeight.bold),
+                    fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const SizedBox(
                 height: 12,
               ),
               isSelectItem
                   ? ActionSlider.standard(
-                      height: 60,
+                      height: 50,
                       child: Text(
                         'Swipe to Purchase',
                         style: GoogleFonts.poppins(

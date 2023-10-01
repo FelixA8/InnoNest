@@ -97,8 +97,8 @@ class _ProductScreenState extends State<ProductScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomImageHolder(
-                        customHeight: 9,
-                        customWidth: 16,
+                        customHeight: 1,
+                        customWidth: 1,
                         customURL: widget.furniture.imgUrl,
                         arURL: widget.furniture.arUrl,
                         showAR: true),
@@ -128,7 +128,7 @@ class _ProductScreenState extends State<ProductScreen> {
                           widget.furniture.location,
                           style: GoogleFonts.poppins(
                               fontSize: 12,
-                              color: Color.fromRGBO(0, 0, 0, 0.65)),
+                              color: const Color.fromRGBO(0, 0, 0, 0.65)),
                         ),
                       ],
                     ),

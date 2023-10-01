@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mechar/libraries/globals.dart' as globals;
 import 'package:mechar/screens/edit_profile_screen.dart';
 import 'package:mechar/screens/puchase_history_screen.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class AccountSection extends StatefulWidget {
   const AccountSection({super.key});
@@ -86,12 +87,32 @@ class _AccountSectionState extends State<AccountSection> {
     );
   }
 
+  void showComingSoonAlert() {
+    Alert(
+      context: context,
+      type: AlertType.info,
+      title: "COMING SOON",
+      style: AlertStyle(titleStyle: GoogleFonts.poppins(fontSize: 20)),
+      buttons: [
+        DialogButton(
+          color: const Color(0xff0085FF),
+          onPressed: () => Navigator.pop(context),
+          width: 120,
+          child: const Text(
+            "Confirm",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+        )
+      ],
+    ).show();
+  }
+
   @override
   Widget build(BuildContext context) {
     getCurrentUserData();
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -148,7 +169,9 @@ class _AccountSectionState extends State<AccountSection> {
               description: 'See your coupons and discounts',
               title: 'My Rewards',
               icon: FontAwesomeIcons.award,
-              action: () {},
+              action: () {
+                showComingSoonAlert();
+              },
             ),
             const SizedBox(
               height: 10,

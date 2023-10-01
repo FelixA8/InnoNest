@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mechar/libraries/globals.dart' as globals;
 import 'package:mechar/screens/changing_profile_screen.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -48,9 +49,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     //get hold of the users collection
     final users = FirebaseFirestore.instance.collection('users');
     Navigator.pop(context);
+    await users.doc(globals.userData.uid).delete();
+    auth.currentUser!.delete();
     await auth.signOut();
     //get hold of the documents which is the user.uid and delete the data
-    await users.doc(globals.userData.uid).delete();
   }
 
   @override
@@ -132,7 +134,37 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             const Spacer(),
             GestureDetector(
               onTap: () {
-                deleteAccount();
+                Alert(
+                  context: context,
+                  type: AlertType.warning,
+                  title: "WARNING!",
+                  desc:
+                      "Proceeding will delete all of your user's information. Recovery not possible",
+                  buttons: [
+                    DialogButton(
+                      onPressed: () {
+                        deleteAccount();
+                        Navigator.pop(context);
+                      },
+                      color: const Color.fromRGBO(0, 179, 134, 1.0),
+                      child: const Text(
+                        "PROCEED",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                    ),
+                    DialogButton(
+                      onPressed: () => Navigator.pop(context),
+                      gradient: const LinearGradient(colors: [
+                        Color.fromRGBO(116, 116, 191, 1.0),
+                        Color.fromRGBO(52, 138, 199, 1.0)
+                      ]),
+                      child: const Text(
+                        "CANCEL",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                    )
+                  ],
+                ).show();
               },
               child: Listener(
                 onPointerDown: (event) => changeColor(),
