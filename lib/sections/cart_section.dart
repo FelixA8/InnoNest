@@ -338,20 +338,23 @@ class _CartSectionState extends State<CartSection> {
                 height: 12,
               ),
               isSelectItem
-                  ? ActionSlider.standard(
-                      height: 50,
-                      child: Text(
-                        'Swipe to Purchase',
-                        style: GoogleFonts.poppins(
-                          fontSize: 20,
+                  ? Padding(
+                      padding: const EdgeInsets.only(bottom: 15),
+                      child: ActionSlider.standard(
+                        height: 50,
+                        child: Text(
+                          'Swipe to Purchase',
+                          style: GoogleFonts.poppins(
+                            fontSize: 20,
+                          ),
                         ),
+                        action: (controller) async {
+                          controller.loading(); //starts loading animation
+                          // await Future.delayed(const Duration(seconds: 3));
+                          deletePurchasedItems();
+                          changeToSuccessScreen();
+                        },
                       ),
-                      action: (controller) async {
-                        controller.loading(); //starts loading animation
-                        // await Future.delayed(const Duration(seconds: 3));
-                        deletePurchasedItems();
-                        changeToSuccessScreen();
-                      },
                     )
                   : Container(),
             ],

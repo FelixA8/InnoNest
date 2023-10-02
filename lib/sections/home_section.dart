@@ -58,7 +58,7 @@ class _HomeSectionState extends State<HomeSection> {
                   style: GoogleFonts.poppins(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xff0085FF)),
+                      color: const Color(0xff0085FF)),
                 ),
               ),
               const SizedBox(
