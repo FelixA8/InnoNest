@@ -58,7 +58,7 @@ class _SuccessPurchaseScreenState extends State<SuccessPurchaseScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xff0085FF),
+      backgroundColor: const Color(0xff004380),
       body: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () => Navigator.pop(context),

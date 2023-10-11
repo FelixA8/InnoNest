@@ -95,7 +95,7 @@ class _AccountSectionState extends State<AccountSection> {
       style: AlertStyle(titleStyle: GoogleFonts.poppins(fontSize: 20)),
       buttons: [
         DialogButton(
-          color: const Color(0xff0085FF),
+          color: const Color(0xff004380),
           onPressed: () => Navigator.pop(context),
           width: 120,
           child: const Text(
@@ -121,7 +121,7 @@ class _AccountSectionState extends State<AccountSection> {
             ),
             const Center(
               child: CircleAvatar(
-                backgroundColor: Color(0xff0085FF),
+                backgroundColor: Color(0xff004380),
                 radius: 102,
                 child: CircleAvatar(
                   backgroundImage:
@@ -212,7 +212,7 @@ class AccountSettingsCategories extends StatelessWidget {
         children: [
           Icon(
             icon,
-            color: const Color(0xff0085FF),
+            color: const Color(0xff004380),
           ),
           const SizedBox(
             width: 12,

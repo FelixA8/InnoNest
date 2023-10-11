@@ -259,7 +259,7 @@ class _CartSectionState extends State<CartSection> {
                   const Icon(
                     FontAwesomeIcons.mapLocationDot,
                     size: 20,
-                    color: Color(0xff0085FF),
+                    color: Color(0xff004380),
                   ),
                   const SizedBox(
                     width: 10,

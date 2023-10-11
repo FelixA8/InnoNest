@@ -42,7 +42,7 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
                   fontSize: 24, fontWeight: FontWeight.bold),
             ),
             Container(
-              color: const Color(0xff0085FF),
+              color: const Color(0xff004380),
               width: 230,
               height: 5,
             ),

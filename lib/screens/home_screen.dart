@@ -77,51 +77,55 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: status, //show the widget based on the selected navbar
       //the bottom navbar
-      bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType
-              .fixed, //when there is 4 or more navbar items, use this method
-          backgroundColor: const Color(0xff0085FF),
-          selectedItemColor: const Color.fromRGBO(255, 255, 255,
-              0.65), //selected items has different colors from the others
-          elevation: 2,
-          unselectedLabelStyle: GoogleFonts.poppins(fontSize: 12),
-          selectedLabelStyle: GoogleFonts.poppins(fontSize: 16),
-          iconSize: 24,
-          unselectedItemColor:
-              Colors.white, //unselected items has it's own colors
-          items: const [
-            //set the bottom navbar UI and icon for home section
-            BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.houseChimneyWindow),
-              label: 'Home',
-              backgroundColor: Colors.white,
-            ),
-            //set the bottom navbar UI and icon for cart section
-            BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.cartShopping),
-              label: 'Cart',
-            ),
-            //set the bottom navbar UI and icon for account section
-            BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.userAstronaut),
-              label: 'Account',
-            ),
-            //set the bottom navbar UI and icon for about section
-            BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.info),
-              label: 'About',
-            ),
-          ],
-          //check the current seleted index
-          currentIndex: _selectedIndex,
-          //when other navbar button is pressed, it will refer to the value (index). Use that to set another widget/ screen.
-          onTap: (value) {
-            setState(() {
-              //change the state of the selected index value and check the section again
-              _selectedIndex = value;
-              checkSection();
-            });
-          }),
+      bottomNavigationBar: SizedBox(
+        width: double.infinity,
+        height: 50,
+        child: BottomNavigationBar(
+            type: BottomNavigationBarType
+                .fixed, //when there is 4 or more navbar items, use this method
+            backgroundColor: const Color(0xff004380),
+            selectedItemColor: const Color.fromRGBO(255, 255, 255,
+                0.65), //selected items has different colors from the others
+            elevation: 2,
+            unselectedLabelStyle: GoogleFonts.poppins(fontSize: 10),
+            selectedLabelStyle: GoogleFonts.poppins(fontSize: 12),
+            iconSize: 16,
+            unselectedItemColor:
+                Colors.white, //unselected items has it's own colors
+            items: const [
+              //set the bottom navbar UI and icon for home section
+              BottomNavigationBarItem(
+                icon: FaIcon(FontAwesomeIcons.houseChimneyWindow, size: 14),
+                label: 'Home',
+                backgroundColor: Colors.white,
+              ),
+              //set the bottom navbar UI and icon for cart section
+              BottomNavigationBarItem(
+                icon: FaIcon(FontAwesomeIcons.cartShopping, size: 14),
+                label: 'Cart',
+              ),
+              //set the bottom navbar UI and icon for account section
+              BottomNavigationBarItem(
+                icon: FaIcon(FontAwesomeIcons.userAstronaut, size: 14),
+                label: 'Account',
+              ),
+              //set the bottom navbar UI and icon for about section
+              BottomNavigationBarItem(
+                icon: FaIcon(FontAwesomeIcons.info, size: 14),
+                label: 'About',
+              ),
+            ],
+            //check the current seleted index
+            currentIndex: _selectedIndex,
+            //when other navbar button is pressed, it will refer to the value (index). Use that to set another widget/ screen.
+            onTap: (value) {
+              setState(() {
+                //change the state of the selected index value and check the section again
+                _selectedIndex = value;
+                checkSection();
+              });
+            }),
+      ),
     );
   }
 }

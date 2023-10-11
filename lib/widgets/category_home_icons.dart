@@ -45,7 +45,7 @@ class CategoryHomeIcon extends StatelessWidget {
       },
       child: Container(
         decoration: const BoxDecoration(
-            color: Color(0xff0085FF),
+            color: Color(0xff004380),
             borderRadius: BorderRadius.all(Radius.circular(10))),
         height: 100,
         width: 80,

@@ -55,10 +55,10 @@ class _HomeSectionState extends State<HomeSection> {
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Text(
                   'Find by Categories',
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.montserrat(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      color: const Color(0xff0085FF)),
+                      color: const Color(0xff004380)),
                 ),
               ),
               const SizedBox(
@@ -84,10 +84,10 @@ class _HomeSectionState extends State<HomeSection> {
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Text(
                   'Our Products',
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.montserrat(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      color: const Color(0xff0085FF)),
+                      color: const Color(0xff004380)),
                 ),
               ),
               const SizedBox(

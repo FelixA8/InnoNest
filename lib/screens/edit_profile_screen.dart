@@ -93,7 +93,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   fontSize: 24, fontWeight: FontWeight.bold),
             ),
             Container(
-              color: const Color(0xff0085FF),
+              color: const Color(0xff004380),
               width: 150,
               height: 5,
             ),

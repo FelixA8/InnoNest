@@ -168,7 +168,7 @@ class _ProductScreenState extends State<ProductScreen> {
                     AlertStyle(titleStyle: GoogleFonts.poppins(fontSize: 20)),
                 buttons: [
                   DialogButton(
-                    color: const Color(0xff0085FF),
+                    color: const Color(0xff004380),
                     onPressed: () => Navigator.pop(context),
                     width: 120,
                     child: const Text(
@@ -188,7 +188,7 @@ class _ProductScreenState extends State<ProductScreen> {
               }
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xff0085FF),
+              backgroundColor: const Color(0xff004380),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8.0),
               ),

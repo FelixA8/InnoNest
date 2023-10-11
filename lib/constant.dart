@@ -12,7 +12,7 @@ class Constant {
       contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10.0),
       fillColor: Color(0xFFD9D9D9));
   static const boxDecorationA = BoxDecoration(
-    color: Color(0xff0085FF),
+    color: Color(0xff004380),
     borderRadius: BorderRadius.all(
       Radius.circular(10),
     ),

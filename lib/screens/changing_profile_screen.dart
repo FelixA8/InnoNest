@@ -22,7 +22,7 @@ class ChangingProfileScreen extends StatefulWidget {
 
 class _ChangingProfileScreenState extends State<ChangingProfileScreen> {
   final thisformKey = GlobalKey<FormState>();
-  Color containerColor = const Color(0xff0085FF);
+  Color containerColor = const Color(0xff004380);
   bool _isHover = false;
   String newContent = "";
 
@@ -50,12 +50,12 @@ class _ChangingProfileScreenState extends State<ChangingProfileScreen> {
       if (_isHover == false) {
         setState(() {
           _isHover = true;
-          containerColor = const Color(0xff0085FF).withOpacity(0.65);
+          containerColor = const Color(0xff004380).withOpacity(0.65);
         });
       } else {
         setState(() {
           _isHover = false;
-          containerColor = const Color(0xff0085FF).withOpacity(1);
+          containerColor = const Color(0xff004380).withOpacity(1);
         });
       }
     }

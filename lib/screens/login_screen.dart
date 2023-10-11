@@ -134,7 +134,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   title,
                   style: GoogleFonts.poppins(
                     textStyle: const TextStyle(
-                        color: Color(0xff0085FF),
+                        color: Color(0xff004380),
                         fontSize: 60,
                         fontWeight: FontWeight.bold),
                   ),
@@ -328,7 +328,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       padding: const MaterialStatePropertyAll(
                           EdgeInsets.symmetric(horizontal: 40)),
                       backgroundColor:
-                          const MaterialStatePropertyAll(Color(0xff0085FF))),
+                          const MaterialStatePropertyAll(Color(0xff004380))),
                   child: Text(
                     title,
                     style: GoogleFonts.poppins(
@@ -360,7 +360,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               style: GoogleFonts.poppins(
                                 textStyle: const TextStyle(
                                   fontSize: 14,
-                                  color: Color(0xff0085FF),
+                                  color: Color(0xff004380),
                                 ),
                               ),
                             ),
@@ -385,7 +385,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               style: GoogleFonts.poppins(
                                 textStyle: const TextStyle(
                                   fontSize: 14,
-                                  color: Color(0xff0085FF),
+                                  color: Color(0xff004380),
                                 ),
                               ),
                             ),
