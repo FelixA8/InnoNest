@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AboutSection extends StatefulWidget {
   const AboutSection({super.key});
@@ -9,6 +10,13 @@ class AboutSection extends StatefulWidget {
 }
 
 class _AboutSectionState extends State<AboutSection> {
+  void _launchURLBrowser() async {
+    final Uri url = Uri.parse('https://forms.gle/P3EM5ymEwwAJD1C76');
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $url');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +42,7 @@ class _AboutSectionState extends State<AboutSection> {
                   style: GoogleFonts.poppins(fontSize: 12),
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 12,
                 ),
                 Text(
                   'Credits',
@@ -71,6 +79,41 @@ class _AboutSectionState extends State<AboutSection> {
                     fontSize: 12,
                   ),
                 ),
+                const SizedBox(
+                  height: 12,
+                ),
+                Text(
+                  'Survey',
+                  style: GoogleFonts.poppins(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: const Color(0xff004380)),
+                ),
+                Text(
+                  'Have any Critics or Suggestions? Please fill out this form',
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                  ),
+                ),
+                const SizedBox(
+                  height: 12,
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: const ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(
+                        Color(0xff004380),
+                      ),
+                    ),
+                    onPressed: _launchURLBrowser,
+                    child: Text(
+                      'Survey Form',
+                      style: GoogleFonts.poppins(
+                          fontSize: 14, color: Colors.white),
+                    ),
+                  ),
+                )
               ],
             ),
           ),

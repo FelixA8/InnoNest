@@ -136,6 +136,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               onTap: () {
                 Alert(
                   context: context,
+                  style: AlertStyle(
+                    titleStyle: GoogleFonts.poppins(),
+                    descStyle: GoogleFonts.poppins(fontSize: 12),
+                  ),
                   type: AlertType.warning,
                   title: "WARNING!",
                   desc:
@@ -146,7 +150,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         deleteAccount();
                         Navigator.pop(context);
                       },
-                      color: const Color.fromRGBO(0, 179, 134, 1.0),
+                      color: Colors.red,
                       child: const Text(
                         "PROCEED",
                         style: TextStyle(color: Colors.white, fontSize: 20),
@@ -154,10 +158,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ),
                     DialogButton(
                       onPressed: () => Navigator.pop(context),
-                      gradient: const LinearGradient(colors: [
-                        Color.fromRGBO(116, 116, 191, 1.0),
-                        Color.fromRGBO(52, 138, 199, 1.0)
-                      ]),
+                      color: Color(0xff004380),
                       child: const Text(
                         "CANCEL",
                         style: TextStyle(color: Colors.white, fontSize: 20),

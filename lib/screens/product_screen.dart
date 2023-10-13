@@ -165,7 +165,7 @@ class _ProductScreenState extends State<ProductScreen> {
                 type: AlertType.success,
                 title: "PRODUCT ADDED TO CART",
                 style:
-                    AlertStyle(titleStyle: GoogleFonts.poppins(fontSize: 20)),
+                    AlertStyle(titleStyle: GoogleFonts.poppins(fontSize: 16)),
                 buttons: [
                   DialogButton(
                     color: const Color(0xff004380),
