@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mechar/constant.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -43,6 +44,15 @@ class _AuthScreenState extends State<AuthScreen> {
           email: _enteredEmail, password: _enteredPassword);
     } on FirebaseAuthException {
       showAlertDialogForFalseEmailOrPass();
+    }
+  }
+
+  void googleLogin() {
+    try {
+      GoogleAuthProvider _googleAuthProvider = GoogleAuthProvider();
+      _auth.signInWithProvider(_googleAuthProvider);
+    } catch (e) {
+      print(e);
     }
   }
 
@@ -336,6 +346,18 @@ class _AuthScreenState extends State<AuthScreen> {
                     ),
                   ),
                 ),
+                const SizedBox(
+                  height: 20,
+                ),
+                IconButton(
+                    onPressed: () {
+                      googleLogin();
+                    },
+                    icon: const Icon(
+                      FontAwesomeIcons.google,
+                      color: Colors.blue,
+                      size: 35,
+                    )),
                 const SizedBox(
                   height: 20,
                 ),

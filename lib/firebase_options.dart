@@ -26,7 +26,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -56,16 +59,5 @@ class DefaultFirebaseOptions {
     projectId: 'mech-ar-1387a',
     databaseURL: 'https://mech-ar-1387a-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'mech-ar-1387a.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBfOZTUJh7be7kfrsr46qEGn2Ntpystz0U',
-    appId: '1:670623270254:ios:19f3954fda8fa58cc7ad7f',
-    messagingSenderId: '670623270254',
-    projectId: 'mech-ar-1387a',
-    databaseURL: 'https://mech-ar-1387a-default-rtdb.asia-southeast1.firebasedatabase.app',
-    storageBucket: 'mech-ar-1387a.appspot.com',
-    iosClientId: '670623270254-921cj7oan28ehvegi3odnhg3r0imthsk.apps.googleusercontent.com',
-    iosBundleId: 'com.example.mechar',
   );
 }
