@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mechar/screens/google_register_screen.dart';
 import 'package:mechar/sections/about_section.dart';
 import 'package:mechar/sections/account_section.dart';
 import 'package:mechar/sections/cart_section.dart';
@@ -54,13 +55,23 @@ class _HomeScreenState extends State<HomeScreen> {
     final users = FirebaseFirestore.instance.collection('users');
     //get hold of the documents which is the user.uid and get the data
     final userData = await users.doc(globals.userData.uid).get();
-    setState(
-      () {
-        userName = userData.data()![
-            'username']; //reach the username in the firebase firestore and set it to the userName
-        userEmail = globals.userData.email; //set the user email
-      },
-    );
+    if (userData.exists) {
+      setState(
+        () {
+          userName = userData.data()![
+              'username']; //reach the username in the firebase firestore and set it to the userNamea
+          userEmail = globals.userData.email; //set the user email
+        },
+      );
+    } else {
+      setState(() {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const GoogleRegisterScreen(),
+            ));
+      });
+    }
   }
 
   @override

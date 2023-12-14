@@ -47,13 +47,12 @@ class _AuthScreenState extends State<AuthScreen> {
     }
   }
 
-  void googleLogin() {
-    try {
-      GoogleAuthProvider _googleAuthProvider = GoogleAuthProvider();
-      _auth.signInWithProvider(_googleAuthProvider);
-    } catch (e) {
-      print(e);
-    }
+  void googleLogin() async {
+    String userName = "";
+    String userEmail = "";
+    GoogleAuthProvider _googleAuthProvider = GoogleAuthProvider();
+    await _auth.signInWithProvider(_googleAuthProvider);
+    //shorten the _auth.currentUser! syntax
   }
 
   void showAlertDialogForFalseEmailOrPass() {
